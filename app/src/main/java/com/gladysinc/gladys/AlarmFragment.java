@@ -2,6 +2,7 @@ package com.gladysinc.gladys;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -342,11 +343,22 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     }
 
     public void timePicker(final String type_of_alarm){
-        MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title(R.string.set_time)
-                .customView(R.layout.time_picker, false)
-                .positiveText(R.string.positve_button)
-                .show();
+
+        MaterialDialog dialog;
+
+        if( Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            dialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.set_time)
+                    .customView(R.layout.time_picker, false)
+                    .positiveText(R.string.positve_button)
+                    .show();
+        }else {
+            dialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.set_time)
+                    .customView(R.layout.time_picker_v21, false)
+                    .positiveText(R.string.positve_button)
+                    .show();
+        }
 
         TimePicker timePicker = (TimePicker) dialog.getCustomView().findViewById(R.id.timePicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -362,11 +374,23 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     }
 
     public void datePicker(){
-        MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title(R.string.set_date)
-                .customView(R.layout.date_picker, false)
-                .positiveText(R.string.positve_button)
-                .show();
+
+        MaterialDialog dialog;
+
+        if( Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            dialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.set_date)
+                    .customView(R.layout.date_picker, false)
+                    .positiveText(R.string.positve_button)
+                    .show();
+        }else {
+            dialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.set_date)
+                    .customView(R.layout.date_picker_v21, false)
+                    .positiveText(R.string.positve_button)
+                    .show();
+        }
+
         DatePicker datePicker = (DatePicker) dialog.getCustomView().findViewById(R.id.datePicker);
         Calendar calendar = Calendar.getInstance();
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
