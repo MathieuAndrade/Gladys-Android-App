@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceCategory
+        android:title="General"
+        android:layout="@layout/settings_text">
+
+        <EditTextPreference
+            android:dialogTitle="Nom"
+            android:key="nom"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Nom" />
+
+        <EditTextPreference
+            android:dialogTitle="Prénom"
+            android:key="prenom"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Prénom" />
+
+        <EditTextPreference
+            android:dialogTitle="ID Utilisateur"
+            android:key="iduser"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="ID Utilisateur" />
+
+        <EditTextPreference
+            android:id="@+id/idhouse"
+            android:dialogTitle="ID du logement"
+            android:key="idlogement"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="ID du logement" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Connexion"
+        android:layout="@layout/settings_text">
+
+        <EditTextPreference
+            android:dialogTitle="Adresse IP"
+            android:inputType="number|numberDecimal"
+            android:digits="0123456789."
+            android:key="ip"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Adresse IP" />
+
+        <EditTextPreference
+            android:dialogTitle="Port"
+            android:inputType="number"
+            android:key="port"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Port" />
+
+        <EditTextPreference
+            android:dialogTitle="Token"
+            android:key="token"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Token" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="nat"
+            android:title="Utiliser une Adresse DNS" />
+
+        <EditTextPreference
+            android:dependency="nat"
+            android:dialogTitle="Adresse DNS"
+            android:key="dns"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Adresse DNS" />
+
+        <SwitchPreference
+            android:dependency="nat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:key="https"
+            android:title="HTTPS"
+            android:disableDependentsState="true"/>
+
+        <EditTextPreference
+            android:dependency="https"
+            android:dialogTitle="Port"
+            android:inputType="number"
+            android:key="portnat"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="OK"
+            android:title="Port" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

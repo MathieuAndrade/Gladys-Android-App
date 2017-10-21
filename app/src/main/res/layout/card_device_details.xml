@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:id="@+id/device_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp"
+            app:srcCompat="@drawable/ic_devices"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/logo"
+            android:layout_toStartOf="@+id/active"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/logo"
+            android:layoutDirection="rtl"
+            android:text="@string/display"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/device_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/device_name"
+            android:layout_below="@id/device_name"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/device_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/device_name"
+            android:layout_below="@id/device_id"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/device_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/device_name"
+            android:layout_below="@id/device_type"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/device_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/device_name"
+            android:layout_below="@+id/device_category"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/device_last_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/device_name"
+            android:layout_below="@id/device_tag"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/device_last_value"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

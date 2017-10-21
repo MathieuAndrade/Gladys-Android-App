@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array
+        name="events">
+        <item>Alarme</item>
+        <item>Changement de mode</item>
+        <item>Coucher de soleil</item>
+        <item>Départ de la maison</item>
+        <item>Départ d\'une zone</item>
+        <item>Entrée dans une zone</item>
+        <item>Gladys installée</item>
+        <item>Gladys mise à jour</item>
+        <item>Lever de soleil</item>
+        <item>Nouvelle valeur deviceType</item>
+        <item>Retour à la maison</item>
+        <item>Réveil</item>
+        <item>Utilisateur vu à la maison</item>
+        <item>Va se coucher</item>
+    </string-array>
+
+</resources>

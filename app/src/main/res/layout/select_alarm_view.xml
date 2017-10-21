@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogalarmrv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/specific_date_button"
+        android:layout_alignBottom="@+id/specific_date_button"
+        android:layout_alignParentStart="true"
+        android:text="@string/specific_date"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/specific_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/new_alarm"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/recurring_button"
+        android:layout_alignBottom="@+id/recurring_button"
+        android:layout_alignParentStart="true"
+        android:text="@string/recurring"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/recurring_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/specific_date_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/new_alarm"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+</RelativeLayout>

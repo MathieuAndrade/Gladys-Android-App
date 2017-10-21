@@ -1,0 +1,304 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gladysinc.gladys.InfosFragment">
+
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/about"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_text"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/version"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+
+            <TextView
+                android:id="@+id/version_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_version"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/separator2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/error_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/error_code"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+
+            <TextView
+                android:id="@+id/error_code_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/error_code_0"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_1"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_2"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_3"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_4"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_5"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/error_code_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/error_code_6"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/separator3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/useful_links"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/useful_links"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+
+            <TextView
+                android:id="@+id/gladysproject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:autoLink="web"
+                android:text="@string/gladysproject"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/git_gladysproject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/git_gladysproject"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/blog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/blog"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/git_gladys_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/git_galdys_app"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/separator4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/open_source_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/open_source_license"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_medium" />
+
+            <TextView
+                android:id="@+id/retrofit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:autoLink="web"
+                android:text="@string/retrofit"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/okhttp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/okhttp"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/gson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/gson"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/sugarorm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/sugarorm"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/vipulasri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/vipulasri"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/material_dialogs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/material_dialogs"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

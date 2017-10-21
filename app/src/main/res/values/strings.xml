@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Gladys</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Paramètres</string>
+    <string name="settings">Paramètres</string>
+
+    <string name="alarm">Alarmes</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="rooms">Pièces</string>
+    <string name="timeline">Timeline</string>
+    <string name="tchat">Tchat</string>
+    <string name="info">Infos</string>
+
+    <string name="house">Maison :</string>
+    <string name="nodata">Aucune données !</string>
+    <string name="enter_message">Entrer un message</string>
+    <string name="add_button">add_button</string>
+    <string name="positve_button">OK</string>
+    <string name="negative_button">Annuler</string>
+
+    <string name="title_dialog_event">Déclencher un Event</string>
+    <string name="event_created">Evènement créé !</string>
+
+    <string name="title_dialog_alarm">Définir un réveil</string>
+    <string name="specific_date">Réveil à une date précise</string>
+    <string name="recurring">Réveil récurrent</string>
+    <string name="new_alarm">Nouveau</string>
+    <string name="set_date">Régler la date</string>
+    <string name="set_time">Régler l\'heure</string>
+    <string name="all_fields">Veuillez renseigner tous les champs</string>
+    <string name="alarm_created">Alarme créé !</string>
+    <string name="alarm_removed">Alarme supprimée !</string>
+
+    <string-array name="days">
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+        <item>Vendredi</item>
+        <item>Samedi</item>
+        <item>Dimanche</item>
+    </string-array>
+
+    <string name="display">Afficher</string>
+    <string name="id">ID :</string>
+    <string name="type">Type :</string>
+    <string name="category">Catégorie :</string>
+    <string name="tag">Tag :</string>
+    <string name="last_value">Dernière valeur :</string>
+    <string name="empty">null</string>
+    <string name="value">Valeur :</string>
+
+    <string name="error">Une erreur est survenu code : </string>
+    
+    <string name="about">A propos</string>
+    <string name="about_text">Cette application fonctionne avec le programme domotique open source GladysProject.</string>
+
+    <string name="version">Version de l\'application</string>
+    <string name="number_version">Gladys Beta 0.1 </string>
+
+    <string name="open_source_license">Licenses open source</string>
+    <string name="retrofit">https://github.com/square/retrofit</string>
+    <string name="okhttp">https://github.com/square/okhttp</string>
+    <string name="gson">https://github.com/google/gson</string>
+    <string name="sugarorm">https://github.com/chennaione/sugar</string>
+    <string name="vipulasri">https://github.com/vipulasri/Timeline-View</string>
+    <string name="material_dialogs">https://github.com/afollestad/material-dialogs</string>
+
+    <string name="error_code">Code d\'erreur et signification</string>
+    <string name="error_code_0">Code 0 : Aucune connexion disponible</string>
+    <string name="error_code_1">Code 1 : Information local non valide         (IP, Port ou Token)</string>
+    <string name="error_code_2">Code 2 : Option Wan désactivée</string>
+    <string name="error_code_3">Code 3 : Information Wan non valide (Dns ou Token)</string>
+    <string name="error_code_4">Code 4 : Information Wan non valide (Port)</string>
+    <string name="error_code_5">Code 5 : Erreur de lecture des données</string>
+    <string name="error_code_6">Code 6 : Erreur de synchronisation</string>
+
+    <string name="useful_links">Liens utiles</string>
+    <string name="gladysproject">https://gladysproject.com/fr/</string>
+    <string name="git_gladysproject">https://github.com/GladysProject/Gladys</string>
+    <string name="blog">https://community.gladysproject.com/</string>
+    <string name="git_galdys_app">https://github.com/LeptitGeek/Gladys-Android-App.git</string>
+
+
+
+</resources>
