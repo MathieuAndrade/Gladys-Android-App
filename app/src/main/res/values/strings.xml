@@ -59,7 +59,7 @@
     <string name="about_text">Cette application fonctionne avec le programme domotique open source GladysProject.</string>
 
     <string name="version">Version de l\'application</string>
-    <string name="number_version">Gladys Beta 0.1 </string>
+    <string name="number_version">Gladys Beta 0.2 </string>
 
     <string name="open_source_license">Licenses open source</string>
     <string name="retrofit">https://github.com/square/retrofit</string>
