@@ -105,10 +105,17 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 ((MultilevelViewHolder) holder).devicemultilevel_name.setText(devicetypeList.get(position).getDevicetypeName());
                 ((MultilevelViewHolder) holder).devicemultilevel_room.setText(devicetypeList.get(position).getRoomName());
-                ((MultilevelViewHolder) holder).devicemultilevel_value.setText(context.getString(R.string.value) + " " + devicetypeList.get(position).getLastValue().toString());
+
+                if (devicetypeList.get(position).getLastValue() == null) {
+                    ((MultilevelViewHolder) holder).devicemultilevel_value.setText(context.getString(R.string.value) + " " + context.getString(R.string.empty) );
+                } else {
+                    ((MultilevelViewHolder) holder).devicemultilevel_value.setText(context.getString(R.string.value) + " " + devicetypeList.get(position).getLastValue().toString());
+                }
+
 
                 ((MultilevelViewHolder) holder).seekBar.setOnSeekBarChangeListener(null);
                 ((MultilevelViewHolder) holder).seekBar.setMax(devicetypeList.get(position).getMax());
+
                 if(devicetypeList.get(position).getLastValue() == null){
                     ((MultilevelViewHolder) holder).seekBar.setProgress(0);
                 } else {
