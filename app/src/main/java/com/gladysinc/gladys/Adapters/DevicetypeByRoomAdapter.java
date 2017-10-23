@@ -159,8 +159,6 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
                 break;
         }
 
-        setAnimation(holder.itemView, position);
-
     }
 
     private class BinaryViewHolder extends RecyclerView.ViewHolder{
@@ -273,15 +271,5 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
 
         return imageView;
-    }
-
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
     }
 }

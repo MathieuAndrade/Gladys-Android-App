@@ -105,7 +105,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
         }
 
-        setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -135,13 +134,4 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
 }

@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
@@ -63,6 +62,8 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     EditText alarm_rec_name, alarm_rec_time;
     String spe_name, rec_name, date_time, day_of_week, id_of_day;
     String time, date;
+    EditText cron_name, cron_rule;
+    String cronrule_name, rule;
     TextView noData;
     AlarmAdapter adapter;
     MenuItem getDataProgress;
@@ -149,15 +150,20 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         Button specific_date_button = (Button) dialog.getCustomView().findViewById(R.id.specific_date_button);
         Button recurring = (Button) dialog.getCustomView().findViewById(R.id.recurring_button);
+        final Button cron = (Button) dialog.getCustomView().findViewById(R.id.cron_button);
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)  specific_date_button.getLayoutParams();
         RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)  recurring.getLayoutParams();
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams)  cron.getLayoutParams();
 
         params.width = ((getResources().getDisplayMetrics().widthPixels)/4);
         params.height = ((getResources().getDisplayMetrics().heightPixels)/13);
 
         params1.width = ((getResources().getDisplayMetrics().widthPixels)/4);
         params1.height = ((getResources().getDisplayMetrics().heightPixels)/13);
+
+        params2.width = ((getResources().getDisplayMetrics().widthPixels)/4);
+        params2.height = ((getResources().getDisplayMetrics().heightPixels)/13);
 
         specific_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +178,14 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             @Override
             public void onClick(View v) {
                 clickRecurring();
+                dialog.dismiss();
+            }
+        });
+
+        cron.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cronRule();
                 dialog.dismiss();
             }
         });
@@ -200,7 +214,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 .negativeText(R.string.negative_button)
                 .show();
 
-        alarm_rec_name = (EditText) dialog.getCustomView().findViewById(R.id.alarmRecName);
+        alarm_rec_name = (EditText) dialog.getCustomView().findViewById(R.id.cronName);
         alarm_rec_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -215,18 +229,10 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         });
 
         alarm_rec_time = (EditText) dialog.findViewById(R.id.alarmRecTime);
-        alarm_rec_time.setOnTouchListener(new View.OnTouchListener() {
+        alarm_rec_time.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (alarm_rec_time.getRight() - alarm_rec_time.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        timePicker("rec");
-                        return true;
-                    }
-                }
-                return false;
+            public void onClick(View v) {
+                timePicker("rec");
             }
         });
 
@@ -283,18 +289,10 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         });
 
         alarm_spe_time = (EditText) dialog.findViewById(R.id.alarmSpeTime);
-        alarm_spe_time.setOnTouchListener(new View.OnTouchListener() {
+        alarm_spe_time.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (alarm_spe_time.getRight() - alarm_spe_time.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        timePicker("spe");
-                        return true;
-                    }
-                }
-                return false;
+            public void onClick(View v) {
+                timePicker("spe");
             }
         });
 
@@ -312,18 +310,10 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         });
 
         alarm_spe_date = (EditText) dialog.findViewById(R.id.alarmSpeDate);
-        alarm_spe_date.setOnTouchListener(new View.OnTouchListener() {
+        alarm_spe_date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (alarm_spe_date.getRight() - alarm_spe_date.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        datePicker();
-                        return true;
-                    }
-                }
-                return false;
+            public void onClick(View v) {
+                datePicker();
             }
         });
 
@@ -340,6 +330,66 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             public void afterTextChanged(Editable s) {}
         });
 
+    }
+
+    public void cronRule(){
+        MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+                .title(R.string.cron)
+                .customView(R.layout.cron_alarm, false)
+                .positiveText(R.string.positve_button)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                        getConnection();
+                        if (connection) {
+
+                            if (cron_name.getText().toString().isEmpty() | cron_rule.getText().toString().isEmpty()){
+                                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            }else {
+                                createCronRule(cronrule_name, rule);
+                            }
+                        }
+                    }
+                })
+                .negativeText(R.string.negative_button)
+                .show();
+
+        cron_name =(EditText) dialog.findViewById(R.id.cronName);
+        cron_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cronrule_name = cron_name.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        cron_rule =(EditText) dialog.findViewById(R.id.cronRule);
+        cron_rule.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                rule = cron_rule.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void timePicker(final String type_of_alarm){
@@ -461,6 +511,34 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
     }
 
+    public void createCronRule(String name, String rule){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(SelfSigningClientBuilder.getUnsafeOkHttpClient())
+                .build();
+
+        RetrofitAPI service = retrofit.create(RetrofitAPI.class);
+
+        Call<Alarm> call = service.createCronRule(name, rule, true, preftoken);
+
+        call.enqueue(new Callback<Alarm>() {
+            @Override
+            public void onResponse(Response<Alarm> response, Retrofit retrofit) {
+
+                getAlarms();
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+    }
+
     public boolean getConnection(){
         Connectivity.typeconnection(getContext());
 
@@ -548,8 +626,19 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickCallbackAlarm(Long alarm_id){
-        deleteAlarm(alarm_id);
+    public void onClickCallbackAlarm(final Long alarm_id){
+
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.remove_alarm)
+                .positiveText(R.string.positve_button)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteAlarm(alarm_id);
+                    }
+                })
+                .negativeText(R.string.negative_button)
+                .show();
     }
 
     public void deleteAlarm(Long alarm_id){

@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="General"
+        android:title="@string/settings_titile_general"
         android:layout="@layout/settings_text">
 
         <EditTextPreference
-            android:dialogTitle="Nom"
+            android:dialogTitle="@string/name"
             android:key="nom"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Nom" />
+            android:hint="@string/name"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/name" />
 
         <EditTextPreference
-            android:dialogTitle="Prénom"
+            android:dialogTitle="@string/first_name"
             android:key="prenom"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Prénom" />
+            android:hint="@string/first_name"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/first_name" />
 
         <EditTextPreference
-            android:dialogTitle="ID Utilisateur"
+            android:dialogTitle="@string/user_id"
             android:key="iduser"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="ID Utilisateur" />
+            android:hint="@string/user_id_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/user_id" />
 
         <EditTextPreference
-            android:id="@+id/idhouse"
-            android:dialogTitle="ID du logement"
+            android:dialogTitle="@string/house_id"
             android:key="idlogement"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="ID du logement" />
+            android:hint="@string/house_id_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/house_id" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -42,41 +43,45 @@
         android:layout="@layout/settings_text">
 
         <EditTextPreference
-            android:dialogTitle="Adresse IP"
+            android:dialogTitle="@string/ip_adress"
             android:inputType="number|numberDecimal"
             android:digits="0123456789."
             android:key="ip"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Adresse IP" />
+            android:hint="@string/ip_adresse_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/ip_adress" />
 
         <EditTextPreference
-            android:dialogTitle="Port"
+            android:dialogTitle="@string/port"
             android:inputType="number"
             android:key="port"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Port" />
+            android:hint="@string/port_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/port" />
 
         <EditTextPreference
-            android:dialogTitle="Token"
+            android:dialogTitle="@string/token"
             android:key="token"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Token" />
+            android:hint="@string/token_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/token" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="nat"
-            android:title="Utiliser une Adresse DNS" />
+            android:title="@string/use_dns_adress" />
 
         <EditTextPreference
             android:dependency="nat"
-            android:dialogTitle="Adresse DNS"
+            android:dialogTitle="@string/dns_adress"
             android:key="dns"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Adresse DNS" />
+            android:hint="@string/dns_adress_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/dns_adress" />
 
         <SwitchPreference
             android:dependency="nat"
@@ -84,17 +89,18 @@
             android:layout_height="wrap_content"
             android:defaultValue="true"
             android:key="https"
-            android:title="HTTPS"
+            android:title="@string/https"
             android:disableDependentsState="true"/>
 
         <EditTextPreference
             android:dependency="https"
-            android:dialogTitle="Port"
+            android:dialogTitle="@string/port"
             android:inputType="number"
             android:key="portnat"
-            android:negativeButtonText="Annuler"
-            android:positiveButtonText="OK"
-            android:title="Port" />
+            android:hint="@string/dns_port_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/port" />
     </PreferenceCategory>
 
 </PreferenceScreen>

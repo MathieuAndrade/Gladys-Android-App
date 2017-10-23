@@ -42,6 +42,10 @@ public interface RetrofitAPI {
     @POST("/alarm")
     Call<Alarm> createAlarmSpe(@Field("name") String name, @Field("datetime") String datetime, @Field("active") Boolean active, @Field("token") String token);
 
+    @FormUrlEncoded
+    @POST("/alarm")
+    Call<Alarm> createCronRule(@Field("name") String name, @Field("cronrule") String datetime, @Field("active") Boolean active, @Field("token") String token);
+
     @DELETE("/alarm/{id}")
     Call<Void> deleteAlarm(@Path("id") Long alarm_id, @Query("token") String token);
 

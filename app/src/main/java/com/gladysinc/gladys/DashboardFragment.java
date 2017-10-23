@@ -216,7 +216,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Response<Void> response, Retrofit retrofit) {
-                    getDevicetypeByRoom();
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
 
                 @Override

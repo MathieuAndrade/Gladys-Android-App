@@ -48,4 +48,25 @@
         android:textColor="@color/white"
         android:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cron_button"
+        android:layout_alignBottom="@+id/cron_button"
+        android:text="@string/cron"
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"/>
+
+    <Button
+        android:id="@+id/cron_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/recurring_button"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/new_alarm"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
 </RelativeLayout>

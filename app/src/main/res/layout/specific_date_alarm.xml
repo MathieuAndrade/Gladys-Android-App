@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +12,7 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Nom" />
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/alarmSpeTime"
@@ -24,8 +23,8 @@
         android:layout_marginTop="16dp"
         android:drawableEnd="@drawable/ic_clock"
         android:ems="10"
-        android:hint="Heure"
-        android:inputType="time" />
+        android:hint="@string/time"
+        android:focusable="false"/>
 
     <EditText
         android:id="@+id/alarmSpeDate"
@@ -33,10 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/alarmSpeTime"
         android:layout_below="@+id/alarmSpeTime"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="21dp"
         android:drawableEnd="@drawable/ic_date"
         android:ems="10"
-        android:hint="Date"
-        android:inputType="date" />
+        android:hint="@string/date"
+        android:focusable="false"/>
 
 </RelativeLayout>

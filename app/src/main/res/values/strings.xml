@@ -6,6 +6,25 @@
 
     <string name="action_settings">Paramètres</string>
     <string name="settings">Paramètres</string>
+    <string name="settings_titile_general">Général</string>
+    <string name="name">Nom</string>
+    <string name="first_name">Prénom</string>
+    <string name="user_id">ID Utilisateur</string>
+    <string name="user_id_example">Exemple: 1</string>
+    <string name="house_id">ID Logement</string>
+    <string name="house_id_example">Exemple: 1</string>
+    <string name="settings_title_connction">Connexion</string>
+    <string name="ip_adress">Adresse IP local</string>
+    <string name="ip_adresse_example">Exemple: 192.168.1.12</string>
+    <string name="port">Port</string>
+    <string name="port_example">Exemple: 8080</string>
+    <string name="token">Token</string>
+    <string name="token_example">Exemple: 95g6s2d5g3e5s1fg5d7g46d</string>
+    <string name="use_dns_adress">Utiliser un DNS / IP publique</string>
+    <string name="dns_adress">DNS / IP Publique</string>
+    <string name="dns_adress_example">Exemple: monadresse.ddns.net</string>
+    <string name="https">HTTPS</string>
+    <string name="dns_port_example">Exemple: 443</string>
 
     <string name="alarm">Alarmes</string>
     <string name="dashboard">Dashboard</string>
@@ -21,18 +40,24 @@
     <string name="positve_button">OK</string>
     <string name="negative_button">Annuler</string>
 
-    <string name="title_dialog_event">Déclencher un Event</string>
+    <string name="title_dialog_event">Déclencher un évènement</string>
     <string name="event_created">Evènement créé !</string>
 
     <string name="title_dialog_alarm">Définir un réveil</string>
     <string name="specific_date">Réveil à une date précise</string>
     <string name="recurring">Réveil récurrent</string>
+    <string name="cron">Règle cron</string>
+    <string name="cron_example">Exemple: 0 0 * * * *</string>
     <string name="new_alarm">Nouveau</string>
     <string name="set_date">Régler la date</string>
     <string name="set_time">Régler l\'heure</string>
     <string name="all_fields">Veuillez renseigner tous les champs</string>
     <string name="alarm_created">Alarme créé !</string>
     <string name="alarm_removed">Alarme supprimée !</string>
+    <string name="remove_alarm">Etes-vous sur de vouloir supprimée l\'alarme ?</string>
+    <string name="time">Heure</string>
+    <string name="date">Date</string>
+
 
     <string-array name="days">
         <item>Lundi</item>
@@ -53,13 +78,14 @@
     <string name="empty">null</string>
     <string name="value">Valeur :</string>
 
+    <string name="command_send">Commande envoyée !</string>
     <string name="error">Une erreur est survenu code : </string>
     
     <string name="about">A propos</string>
     <string name="about_text">Cette application fonctionne avec le programme domotique open source GladysProject.</string>
 
     <string name="version">Version de l\'application</string>
-    <string name="number_version">Gladys Beta 0.2.1 </string>
+    <string name="number_version">Gladys Beta 0.3</string>
 
     <string name="open_source_license">Licenses open source</string>
     <string name="retrofit">https://github.com/square/retrofit</string>

@@ -80,8 +80,6 @@ public class DeviceRoomAdapter extends RecyclerView.Adapter<DeviceRoomAdapter.Vi
                 callbackDevicetype.onClickCallbackDevicetype(id, isChecked);
             }
         });
-
-        setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -143,13 +141,4 @@ public class DeviceRoomAdapter extends RecyclerView.Adapter<DeviceRoomAdapter.Vi
         return imageView;
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        if (position > lastPosition)
-        {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
 }
