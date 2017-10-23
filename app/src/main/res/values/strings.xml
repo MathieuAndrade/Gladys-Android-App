@@ -14,7 +14,7 @@
     <string name="house_id">ID Logement</string>
     <string name="house_id_example">Exemple: 1</string>
     <string name="settings_title_connction">Connexion</string>
-    <string name="ip_adress">Adresse IP local</string>
+    <string name="ip_adress">Adresse IP locale</string>
     <string name="ip_adresse_example">Exemple: 192.168.1.12</string>
     <string name="port">Port</string>
     <string name="port_example">Exemple: 8080</string>
@@ -54,7 +54,7 @@
     <string name="all_fields">Veuillez renseigner tous les champs</string>
     <string name="alarm_created">Alarme créé !</string>
     <string name="alarm_removed">Alarme supprimée !</string>
-    <string name="remove_alarm">Etes-vous sur de vouloir supprimée l\'alarme ?</string>
+    <string name="remove_alarm">Êtes-vous sûr de vouloir supprimer l\'alarme ?</string>
     <string name="time">Heure</string>
     <string name="date">Date</string>
 
