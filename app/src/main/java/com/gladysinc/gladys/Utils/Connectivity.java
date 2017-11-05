@@ -51,8 +51,8 @@ public class Connectivity extends AppCompatActivity{
     private static void chekerprefernceslocal(Context context){
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String ip = prefs.getString("ip", "");
-        String port = prefs.getString("port", "");
+        String ip = prefs.getString("local_ip", "");
+        String port = prefs.getString("local_port", "");
         String token = prefs.getString("token", "");
 
         if(!Objects.equals(ip, "") & !Objects.equals(port, "") & !Objects.equals(token, "")){
@@ -68,7 +68,7 @@ public class Connectivity extends AppCompatActivity{
         boolean nat = prefs.getBoolean("nat", false);
         boolean https = prefs.getBoolean("https", false);
         String dns = prefs.getString("dns", "");
-        String portnat = prefs.getString("portnat", "");
+        String portnat = prefs.getString("nat_port", "");
         String token = prefs.getString("token", "");
 
 

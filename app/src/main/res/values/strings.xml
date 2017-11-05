@@ -29,7 +29,7 @@
     <string name="error">Une erreur est survenu code : </string>
     <string name="error_code">Code d\'erreur et signification</string>
     <string name="error_code_0">Code 0 : Aucune connexion disponible</string>
-    <string name="error_code_1">Code 1 : Information local non valide         (IP, Port ou Token)</string>
+    <string name="error_code_1">Code 1 : Information local non valide (IP, Port ou Token)</string>
     <string name="error_code_2">Code 2 : Option Wan désactivée</string>
     <string name="error_code_3">Code 3 : Information Wan non valide (Dns ou Token)</string>
     <string name="error_code_4">Code 4 : Information Wan non valide (Port)</string>
@@ -41,7 +41,7 @@
     <string name="git_galdys_app">https://github.com/LeptitGeek/Gladys-Android-App.git</string>
     <string name="gladysproject">https://gladysproject.com/fr/</string>
     <string name="gson">https://github.com/google/gson</string>
-    <string name="home_assistant">Your home assitant</string>
+    <string name="home_assistant">Your home assistant</string>
     <string name="house">Maison :</string>
     <string name="house_id">ID Logement</string>
     <string name="house_id_example">Exemple: 1</string>
@@ -60,7 +60,7 @@
     <string name="negative_button">Annuler</string>
     <string name="new_object">Nouveau</string>
     <string name="no_data">Aucune donnée !</string>
-    <string name="number_version">Gladys Beta 0.4.2</string>
+    <string name="number_version">Gladys Beta 0.4.3</string>
     <string name="okhttp">https://github.com/square/okhttp</string>
     <string name="open_source_license">Licenses open source</string>
     <string name="port">Port</string>
