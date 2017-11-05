@@ -114,13 +114,17 @@ public class TimelineFragment extends Fragment {
                 } else {
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(getActivity() != null){
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
                 get_data_progress.setVisible(false);
                 Log.d("Timeline", String.valueOf(t));
             }
@@ -174,15 +178,21 @@ public class TimelineFragment extends Fragment {
                 public void onResponse(Call<Event> call, Response<Event> response) {
                     if(response.code() == 201){
                         getAllEvents();
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.event_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        if(getActivity() != null){
+                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.event_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
                     }else{
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        if(getActivity() != null){
+                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Event> call, Throwable t) {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             });
         }
@@ -266,7 +276,9 @@ public class TimelineFragment extends Fragment {
                 | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            if(getActivity() != null){
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
 
         }else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -370,7 +382,9 @@ public class TimelineFragment extends Fragment {
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(timeline_fragment_weak_reference.get().getActivity() != null){
+                    Snackbar.make(timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
                 result = false;
             }
 
@@ -386,7 +400,9 @@ public class TimelineFragment extends Fragment {
             if(result){
                 timelineFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(timelineFragment.getActivity().findViewById(R.id.layout), timelineFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(timelineFragment.getActivity() != null){
+                    Snackbar.make(timelineFragment.getActivity().findViewById(R.id.layout), timelineFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             timelineFragment.get_data_progress.setVisible(false);

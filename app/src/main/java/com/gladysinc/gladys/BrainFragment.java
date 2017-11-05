@@ -120,18 +120,20 @@ public class BrainFragment extends Fragment {
                     save_data.execute(brainSentencesList);
                 } else {
                     get_data_progress.setVisible(false);
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<BrainSentences>> call, Throwable t) {
                 if (!t.getMessage().equalsIgnoreCase("Socket closed")) {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
                 get_data_progress.setVisible(false);
-
             }
         });
     }
@@ -156,8 +158,9 @@ public class BrainFragment extends Fragment {
                 | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+            if(getActivity() != null){
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
         }else {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -206,7 +209,9 @@ public class BrainFragment extends Fragment {
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(brain_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(brain_fragment_weak_reference.get().getActivity() != null){
+                    Snackbar.make(brain_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
                 result = false;
             }
 
@@ -220,7 +225,9 @@ public class BrainFragment extends Fragment {
             if (brainFragment == null) return;
 
             if(!result){
-                Snackbar.make(brainFragment.getActivity().findViewById(R.id.layout), brainFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(brainFragment.getActivity() != null){
+                    Snackbar.make(brainFragment.getActivity().findViewById(R.id.layout), brainFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
             brainFragment.get_data_progress.setVisible(false);
             brainFragment.view_pager.getAdapter().notifyDataSetChanged();

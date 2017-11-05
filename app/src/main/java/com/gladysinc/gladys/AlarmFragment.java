@@ -132,13 +132,17 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 } else {
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Alarm>> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(getActivity() != null){
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
         });
 
@@ -206,7 +210,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                         getConnection();
                         if (connection) {
                             if (rec_alarm_name.getText().toString().isEmpty() | rec_alarm_time.getText().toString().isEmpty()){
-                                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                if(getActivity() != null){
+                                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                }
                             }else {
                                 id_of_day = DateTimeUtils.getIdDay(day_of_week);
                                 createAlarmRec();
@@ -247,9 +253,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -266,7 +270,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                         if (connection) {
 
                             if (spe_alarm_name.getText().toString().isEmpty() | spe_alarm_time.getText().toString().isEmpty() | spe_alarm_date.getText().toString().isEmpty()){
-                                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                if(getActivity() != null){
+                                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                }
                             }else {
                                 date_time = DateTimeUtils.parseDateTime(date + time);
                                 createAlarmSpe();
@@ -348,7 +354,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                         if (connection) {
 
                             if (cron_name.getText().toString().isEmpty() | cron_rule.getText().toString().isEmpty()){
-                                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                if(getActivity() != null){
+                                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                                }
                             }else {
                                 createCronRule(cron_rule_name, rule);
                             }
@@ -361,9 +369,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         cron_name =(EditText) dialog.findViewById(R.id.cron_alarm_name);
         cron_name.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -371,17 +377,13 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         cron_rule =(EditText) dialog.findViewById(R.id.cron_alarm_rule);
         cron_rule.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -389,9 +391,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 
@@ -492,15 +492,21 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                 if (response.code() == 201){
                     getAllAlarms();
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }else {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Alarm> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (getActivity() != null){
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
         });
     }
@@ -523,15 +529,21 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                 if (response.code() == 201){
                     getAllAlarms();
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }else {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Alarm> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (getActivity() != null){
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
         });
 
@@ -555,16 +567,21 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                 if (response.code() == 201){
                     getAllAlarms();
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }else{
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
-
             }
 
             @Override
             public void onFailure(Call<Alarm> call, Throwable t) {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (getActivity() != null){
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
         });
     }
@@ -579,7 +596,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            if (getActivity() != null ){
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
 
         }else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -693,15 +712,20 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                     if (response.code() == 200){
                         getAllAlarms();
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_removed), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        if (getActivity() != null){
+                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_removed), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
                     } else {
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        if (getActivity() != null){
+                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
                     }
-
                 }
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if (getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
             });
         }
@@ -755,7 +779,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(alarm_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(alarm_fragment_weak_reference.get().getActivity() != null){
+                    Snackbar.make(alarm_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
                 result = false;
             }
 
@@ -771,9 +797,10 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             if(result){
                 alarmFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(alarmFragment.getActivity().findViewById(R.id.layout), alarmFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(alarmFragment.getActivity() != null){
+                    Snackbar.make(alarmFragment.getActivity().findViewById(R.id.layout), alarmFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
-
             alarmFragment.get_data_progress.setVisible(false);
         }
     }

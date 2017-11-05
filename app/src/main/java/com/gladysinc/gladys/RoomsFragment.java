@@ -114,7 +114,10 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
                 } else {
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+
                 }
 
             }
@@ -122,7 +125,9 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
             @Override
             public void onFailure(Call<List<DevicetypeByRoom>> call, Throwable t) {
                 if(!t.getMessage().equalsIgnoreCase("Socket closed")){
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(getActivity() != null){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
                 get_data_progress.setVisible(false);
             }
@@ -192,7 +197,9 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
                 | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            if(getActivity() != null){
+                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
 
         }else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -265,7 +272,10 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(rooms_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(rooms_fragment_weak_reference.get().getActivity() != null){
+                    Snackbar.make(rooms_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
+
                 result = false;
             }
 
@@ -281,7 +291,9 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
             if(result){
                 roomsFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(roomsFragment.getActivity().findViewById(R.id.layout), roomsFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(roomsFragment.getActivity() != null){
+                    Snackbar.make(roomsFragment.getActivity().findViewById(R.id.layout), roomsFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             roomsFragment.get_data_progress.setVisible(false);
