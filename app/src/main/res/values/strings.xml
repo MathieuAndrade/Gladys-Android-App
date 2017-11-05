@@ -60,7 +60,7 @@
     <string name="negative_button">Annuler</string>
     <string name="new_object">Nouveau</string>
     <string name="no_data">Aucune donnée !</string>
-    <string name="number_version">Gladys Beta 0.4</string>
+    <string name="number_version">Gladys Beta 0.4.1</string>
     <string name="okhttp">https://github.com/square/okhttp</string>
     <string name="open_source_license">Licenses open source</string>
     <string name="port">Port</string>

@@ -28,7 +28,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
     @Override
     public AlarmAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Context context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alarm, parent, false);
         return new AlarmAdapter.ViewHolder(view);
     }

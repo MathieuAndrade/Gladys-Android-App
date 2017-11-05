@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,7 +63,6 @@ public class BrainFragment extends Fragment {
                 getConnection();
                 if (connection) {
                     getAllBrainSentences();
-                    Log.d("Brain", "FAB");
                 }
             }
         });
@@ -116,7 +114,6 @@ public class BrainFragment extends Fragment {
             public void onResponse(Call<List<BrainSentences>> call, Response<List<BrainSentences>> response) {
 
                 List<BrainSentences> brainSentencesList = response.body();
-                Log.d("Brain", "GET");
 
                 if (brainSentencesList != null) {
                     save_data = new SaveData(BrainFragment.this);
