@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -106,7 +105,6 @@ public class TimelineFragment extends Fragment {
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
 
                 List<Event> TimelineData = response.body();
-                Log.d("Timeline", "Salut");
 
                 if(TimelineData != null){
                     save_data = new SaveData(TimelineFragment.this);
@@ -126,7 +124,6 @@ public class TimelineFragment extends Fragment {
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
                 get_data_progress.setVisible(false);
-                Log.d("Timeline", String.valueOf(t));
             }
         });
     }

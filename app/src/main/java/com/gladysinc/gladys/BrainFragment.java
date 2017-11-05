@@ -128,7 +128,7 @@ public class BrainFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<BrainSentences>> call, Throwable t) {
-                if (!t.getMessage().equalsIgnoreCase("Socket closed")) {
+                if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
                         Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }

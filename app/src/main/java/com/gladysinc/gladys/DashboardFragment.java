@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -190,7 +191,8 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             @Override
             public void onFailure(Call<List<DevicetypeByRoom>> call, Throwable t) {
-                if(!t.getMessage().equalsIgnoreCase("Socket closed")){
+
+                if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
                         Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
@@ -240,8 +242,10 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 }
                 @Override
                 public void onFailure(Call<Void> call,Throwable t) {
-                    if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
+                        if(getActivity() != null){
+                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        }
                     }
                 }
             });

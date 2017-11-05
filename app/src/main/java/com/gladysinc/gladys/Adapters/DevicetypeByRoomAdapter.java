@@ -101,7 +101,6 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
             case 2:
 
                 String multilevelValueNull = context.getString(R.string.value) + " " + context.getString(R.string.empty);
-                String multilevelValue = context.getString(R.string.value) + " " + results.get(position).getLastValue().toString();
 
                 ((MultilevelViewHolder) holder).device_multilevel_name.setText(results.get(position).getDevicetypeName());
                 ((MultilevelViewHolder) holder).device_multilevel_room.setText(results.get(position).getRoomName());
@@ -109,6 +108,7 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
                 if (results.get(position).getLastValue() == null) {
                     ((MultilevelViewHolder) holder).device_multilevel_value_text.setText(multilevelValueNull);
                 } else {
+                    String multilevelValue = context.getString(R.string.value) + " " + results.get(position).getLastValue().toString();
                     ((MultilevelViewHolder) holder).device_multilevel_value_text.setText(multilevelValue);
                 }
 
@@ -145,14 +145,13 @@ public class DevicetypeByRoomAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             default:
 
-                String sensorValue = results.get(position).getLastValue().toString() + " " + results.get(position).getUnit();
-
                 ((SensorViewHolder) holder).device_sensor_name.setText(results.get(position).getDevicetypeName());
                 ((SensorViewHolder) holder).device_sensor_room.setText(results.get(position).getRoomName());
 
                 if(results.get(position).getLastValue() == null) {
                     ((SensorViewHolder) holder).device_sensor_value.setText("0");
                 }else {
+                    String sensorValue = results.get(position).getLastValue().toString() + " " + results.get(position).getUnit();
                     ((SensorViewHolder) holder).device_sensor_value.setText(sensorValue);
                 }
 
