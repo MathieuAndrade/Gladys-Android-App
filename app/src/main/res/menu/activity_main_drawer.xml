@@ -3,24 +3,28 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/DashBoard"
+            android:id="@+id/dashboard"
             android:checked="true"
             android:icon="@drawable/ic_dashboard"
             android:title="@string/dashboard" />
         <item
-            android:id="@+id/Rooms"
+            android:id="@+id/rooms"
             android:icon="@drawable/ic_home"
             android:title="@string/rooms" />
         <item
-            android:id="@+id/Timeline"
+            android:id="@+id/timeline"
             android:icon="@drawable/ic_timeline"
             android:title="@string/timeline" />
         <item
-            android:id="@+id/Réveils"
+            android:id="@+id/alarm"
             android:icon="@drawable/ic_alarm"
             android:title="@string/alarm" />
         <item
-            android:id="@+id/Infos"
+            android:id="@+id/brain"
+            android:icon="@drawable/ic_brain"
+            android:title="@string/brain" />
+        <item
+            android:id="@+id/infos"
             android:icon="@drawable/ic_info"
             android:title="@string/info" />
     </group>

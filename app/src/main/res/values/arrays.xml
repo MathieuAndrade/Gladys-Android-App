@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="code_days">
+        <item>Dimanche</item>
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+        <item>Vendredi</item>
+        <item>Samedi</item>
+    </string-array>
+
+    <string-array name="days">
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+        <item>Vendredi</item>
+        <item>Samedi</item>
+        <item>Dimanche</item>
+    </string-array>
+
     <string-array
         name="events">
         <item>Alarme</item>
@@ -17,6 +37,49 @@
         <item>Réveil</item>
         <item>Utilisateur vu à la maison</item>
         <item>Va se coucher</item>
+    </string-array>
+
+    <string-array
+        name="events_code">
+        <item>alarm</item>
+        <item>house-mode-changed</item>
+        <item>sunset</item>
+        <item>left-home</item>
+        <item>left-area</item>
+        <item>enter-area</item>
+        <item>gladys-installed</item>
+        <item>gladys-updated</item>
+        <item>sunrise</item>
+        <item>devicetype-new-value</item>
+        <item>back-at-home</item>
+        <item>wake-up</item>
+        <item>user-seen-at-home</item>
+        <item>going-to-sleep</item>
+    </string-array>
+
+    <string-array name="label">
+        <item>back-at-home</item>
+        <item>create-alarm</item>
+        <item>get-current-track</item>
+        <item>get-next-event</item>
+        <item>get-time</item>
+        <item>get-weather</item>
+        <item>going-to-sleep</item>
+        <item>greeting</item>
+        <item>left-home</item>
+        <item>next</item>
+        <item>no-command-detected</item>
+        <item>pause</item>
+        <item>play</item>
+        <item>previous</item>
+        <item>set-device-off</item>
+        <item>set-device-on</item>
+        <item>stop</item>
+        <item>thank-you</item>
+        <item>volume-down</item>
+        <item>volume-up</item>
+        <item>wake-up</item>
+        <item>whats-up</item>
     </string-array>
 
 </resources>

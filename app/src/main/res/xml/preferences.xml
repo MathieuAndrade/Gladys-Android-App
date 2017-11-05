@@ -7,7 +7,7 @@
 
         <EditTextPreference
             android:dialogTitle="@string/name"
-            android:key="nom"
+            android:key="name"
             android:hint="@string/name"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -15,7 +15,7 @@
 
         <EditTextPreference
             android:dialogTitle="@string/first_name"
-            android:key="prenom"
+            android:key="first_name"
             android:hint="@string/first_name"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -23,7 +23,7 @@
 
         <EditTextPreference
             android:dialogTitle="@string/user_id"
-            android:key="iduser"
+            android:key="user_id"
             android:hint="@string/user_id_example"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -31,7 +31,7 @@
 
         <EditTextPreference
             android:dialogTitle="@string/house_id"
-            android:key="idlogement"
+            android:key="house_id"
             android:hint="@string/house_id_example"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -39,14 +39,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Connexion"
+        android:title="@string/connection"
         android:layout="@layout/settings_text">
 
         <EditTextPreference
             android:dialogTitle="@string/ip_adress"
             android:inputType="number|numberDecimal"
             android:digits="0123456789."
-            android:key="ip"
+            android:key="local_ip"
             android:hint="@string/ip_adresse_example"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -55,7 +55,7 @@
         <EditTextPreference
             android:dialogTitle="@string/port"
             android:inputType="number"
-            android:key="port"
+            android:key="local_port"
             android:hint="@string/port_example"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"
@@ -96,7 +96,7 @@
             android:dependency="https"
             android:dialogTitle="@string/port"
             android:inputType="number"
-            android:key="portnat"
+            android:key="nat_port"
             android:hint="@string/dns_port_example"
             android:negativeButtonText="@string/negative_button"
             android:positiveButtonText="@string/positve_button"

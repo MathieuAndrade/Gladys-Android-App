@@ -1,13 +1,10 @@
 package com.gladysinc.gladys.Adapters;
 
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -22,18 +19,16 @@ import java.util.Objects;
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
 
     private List<Alarm> results;
-    private Context context;
-    private int lastPosition = -1;
     private AdapterCallback.AdapterCallbackAlarm adapter;
 
-    public AlarmAdapter(List<Alarm> android, AdapterCallback.AdapterCallbackAlarm adapterCallback){
-        this.results = android;
+    public AlarmAdapter(List<Alarm> alarmList, AdapterCallback.AdapterCallbackAlarm adapterCallback){
+        this.results = alarmList;
         adapter = adapterCallback;
     }
 
     @Override
     public AlarmAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
+        //Context context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_alarm, parent, false);
         return new AlarmAdapter.ViewHolder(view);
     }
@@ -46,10 +41,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         holder.alarm_name.setText(results.get(position).getName());
 
         if (!Objects.equals(results.get(position).getDatetime(), null)){
-            holder.alarm_moment.setText(DateTimeUtils.getRelativeTimeSpan(results.get(position).getDatetime(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            holder.alarm_moment.setText(DateTimeUtils.getRelativeTimeSpan(results.get(position).getDatetime()));
         }
         else if (!Objects.equals(results.get(position).getTime(), null)){
-            holder.alarm_moment.setText(DateTimeUtils.getDay(results.get(position).getDayofweek().toString()) + ", " + results.get(position).getTime());
+            String alarm_moment = DateTimeUtils.getDay(results.get(position).getDayofweek().toString()) + ", " + results.get(position).getTime();
+            holder.alarm_moment.setText(alarm_moment);
         }
         else {
             holder.alarm_moment.setText(results.get(position).getCronrule());
@@ -75,11 +71,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         ViewHolder(View view) {
             super(view);
 
-            delete = (ImageButton) view.findViewById(R.id.deleteButton);
-            alarm_name = (TextView) view.findViewById(R.id.alarmname);
-            alarm_moment = (TextView) view.findViewById(R.id.alarmmoment);
+            delete = view.findViewById(R.id.delete_alarm_button);
+            alarm_name = view.findViewById(R.id.alarm_name);
+            alarm_moment = view.findViewById(R.id.alarm_moment);
 
         }
     }
-
 }

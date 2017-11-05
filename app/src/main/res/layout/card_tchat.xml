@@ -9,13 +9,13 @@
     app:cardCornerRadius="5dp">
 
     <RelativeLayout
-        android:id="@+id/tchatrl"
+        android:id="@+id/tchat_message_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12sp">
 
         <TextView
-            android:id="@+id/textmessage"
+            android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"

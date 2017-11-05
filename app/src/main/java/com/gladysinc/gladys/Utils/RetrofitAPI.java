@@ -1,19 +1,22 @@
 package com.gladysinc.gladys.Utils;
 
 import com.gladysinc.gladys.Models.Alarm;
+import com.gladysinc.gladys.Models.BrainSentences;
 import com.gladysinc.gladys.Models.DevicetypeByRoom;
 import com.gladysinc.gladys.Models.Event;
 
 import java.util.List;
 
-import retrofit.Call;
-import retrofit.http.DELETE;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 
 public interface RetrofitAPI {
 
@@ -44,9 +47,20 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/alarm")
-    Call<Alarm> createCronRule(@Field("name") String name, @Field("cronrule") String datetime, @Field("active") Boolean active, @Field("token") String token);
+    Call<Alarm> createCronRule(@Field("name") String name, @Field("cronrule") String datetime, @Field("token") String token);
 
     @DELETE("/alarm/{id}")
     Call<Void> deleteAlarm(@Path("id") Long alarm_id, @Query("token") String token);
+
+    @GET("/sentence?")
+    Call<List<BrainSentences>> getBrainSentences(@Query("take") String take, @Query("token") String token);
+
+    @FormUrlEncoded
+    @PATCH("/sentence/{id}")
+    Call<Void> setLabel(@Path("id") Long sentence_id, @Field("label") String label, @Query("token") String token);
+
+    @FormUrlEncoded
+    @PATCH("/sentence/{id}")
+    Call<Void> setStatus(@Path("id") Long sentence_id, @Field("status") String status, @Query("token") String token);
 
 }

@@ -1,6 +1,8 @@
 package com.gladysinc.gladys.Utils;
 
 
+import android.view.View;
+
 public interface AdapterCallback {
 
     interface AdapterCallbackAlarm{
@@ -17,5 +19,9 @@ public interface AdapterCallback {
 
     interface AdapterCallbackDevicestate{
         void onClickCallbackDevicestate(Long id, Float value);
+    }
+
+    interface AdapterCallbackBrainSentences{
+        void onPopupMenuClickBrainSentences(View view, int pos, Long id, String status, String label);
     }
 }

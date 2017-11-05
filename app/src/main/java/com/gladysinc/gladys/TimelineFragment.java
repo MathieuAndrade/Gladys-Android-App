@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,35 +26,38 @@ import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.gladysinc.gladys.Utils.Connectivity.typeofconnection;
+import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 
 
 public class TimelineFragment extends Fragment {
 
-    String url, preftoken;
-    String code, prefuser, prefhouse;
+    String url, pref_token;
+    String code, pref_user, pref_house;
     Boolean connection;
-    RecyclerView recyclerView;
-    TextView noData;
+    RecyclerView recycler_view;
+    TextView no_data;
     EventAdapter adapter;
-    MenuItem getDataProgress;
-    SaveData saveData;
+    MenuItem get_data_progress;
+    SaveData save_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +66,7 @@ public class TimelineFragment extends Fragment {
 
                 getConnection();
                 if(connection){
-                    getEvents();
+                    getAllEvents();
                 }
             }
         });
@@ -71,21 +75,21 @@ public class TimelineFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_timeline, container, false);
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.rv_fragment_timeline);
-        recyclerView.setHasFixedSize(true);
+        recycler_view = view.findViewById(R.id.rv_fragment_timeline);
+        recycler_view.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recycler_view.setLayoutManager(layoutManager);
 
-        noData = (TextView) v.findViewById(R.id.no_data);
+        no_data = view.findViewById(R.id.no_data);
 
-        return v;
+        return view;
     }
 
-    public void getEvents() {
+    public void getAllEvents() {
 
-        getDataProgress.setVisible(true);
+        get_data_progress.setVisible(true);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -95,27 +99,30 @@ public class TimelineFragment extends Fragment {
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        Call<List<Event>> call = service.getEvents(preftoken);
+        Call<List<Event>> call = service.getEvents(pref_token);
 
         call.enqueue(new Callback<List<Event>>() {
             @Override
-            public void onResponse(Response<List<Event>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
 
                 List<Event> TimelineData = response.body();
+                Log.d("Timeline", "Salut");
 
                 if(TimelineData != null){
-                    saveData = new SaveData();
-                    saveData.execute(TimelineData);
+                    save_data = new SaveData(TimelineFragment.this);
+                    save_data.execute(TimelineData);
                 } else {
-                    refreshAdapterView();
-                    getDataProgress.setVisible(false);
+                    onRefreshAdapterView();
+                    get_data_progress.setVisible(false);
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<Event>> call, Throwable t) {
                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                get_data_progress.setVisible(false);
+                Log.d("Timeline", String.valueOf(t));
             }
         });
     }
@@ -143,8 +150,8 @@ public class TimelineFragment extends Fragment {
 
         SharedPreferences pref1 = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        prefhouse = pref1.getString("idhouse", "1");
-        prefuser = pref1.getString("iduser", "1");
+        pref_house = pref1.getString("idhouse", "1");
+        pref_user = pref1.getString("iduser", "1");
 
         getConnection();
 
@@ -160,19 +167,21 @@ public class TimelineFragment extends Fragment {
 
             RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-            Call<Event> call = service.createEvents(code, prefhouse, prefuser, preftoken);
+            Call<Event> call = service.createEvents(code, pref_house, pref_user, pref_token);
 
             call.enqueue(new Callback<Event>() {
                 @Override
-                public void onResponse(Response<Event> response, Retrofit retrofit) {
-
-                    getEvents();
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.event_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+                public void onResponse(Call<Event> call, Response<Event> response) {
+                    if(response.code() == 201){
+                        getAllEvents();
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.event_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }else{
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
 
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<Event> call, Throwable t) {
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             });
@@ -184,36 +193,38 @@ public class TimelineFragment extends Fragment {
         long count = Event.count(Event.class);
 
         if (count > 0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             List<Event> data = Event.listAll(Event.class);
             adapter = new EventAdapter(data);
-            recyclerView.setAdapter(adapter);
-            getEvents();
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
+            getAllEvents();
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
-            getEvents();
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
+            getAllEvents();
         }
     }
 
-    public void refreshAdapterView(){
+    public void onRefreshAdapterView(){
 
         long count = Event.count(Event.class);
 
         if (count > 0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             List<Event> data = Event.listAll(Event.class);
             adapter = new EventAdapter(data);
-            recyclerView.setAdapter(adapter);
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
         }
     }
 
@@ -222,13 +233,13 @@ public class TimelineFragment extends Fragment {
         inflater.inflate(R.menu.main, menu);
         MenuItem button = menu.findItem(R.id.add_button);
         button.setVisible(true);
-        getDataProgress = menu.findItem(R.id.miActionProgress);
+        get_data_progress = menu.findItem(R.id.miActionProgress);
 
         getConnection();
         if(connection){
             onCreateAdapterView();
         }else {
-            refreshAdapterView();
+            onRefreshAdapterView();
         }
     }
 
@@ -245,28 +256,27 @@ public class TimelineFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean getConnection(){
+    public void getConnection(){
         Connectivity.typeconnection(getContext());
 
-        if (Objects.equals(typeofconnection, "0")
-                | Objects.equals(typeofconnection, "1")
-                | Objects.equals(typeofconnection, "2")
-                | Objects.equals(typeofconnection, "3")
-                | Objects.equals(typeofconnection, "4") ){
+        if (Objects.equals(type_of_connection, "0")
+                | Objects.equals(type_of_connection, "1")
+                | Objects.equals(type_of_connection, "2")
+                | Objects.equals(type_of_connection, "3")
+                | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + typeofconnection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            preftoken = prefs.getString("token", "");
+            pref_token = prefs.getString("token", "");
             connection = true;
-            url = typeofconnection;}
+            url = type_of_connection;}
 
-        return (connection);
     }
 
-    public String getCode(String text){
+    public void getCode(String text){
 
         switch (text) {
             case "Alarme":
@@ -313,18 +323,22 @@ public class TimelineFragment extends Fragment {
                 break;
         }
 
-        return(code);
     }
 
-    public void onDestroyView(){
-        super.onDestroyView();
-        if (saveData != null && saveData.getStatus() != AsyncTask.Status.FINISHED)
-            saveData.cancel(true);
+    public void onStop(){
+        super.onStop();
+        if (save_data != null && save_data.getStatus() != AsyncTask.Status.FINISHED)
+            save_data.cancel(true);
     }
 
-    private class SaveData extends AsyncTask<List<Event>, Integer, Boolean>
+    private static class SaveData extends AsyncTask<List<Event>, Void, Boolean>
     {
+        private WeakReference<TimelineFragment> timeline_fragment_weak_reference;
         boolean result;
+
+        SaveData(TimelineFragment context){
+            timeline_fragment_weak_reference = new WeakReference<>(context);
+        }
 
         @Override
         protected void onPreExecute() {
@@ -356,7 +370,7 @@ public class TimelineFragment extends Fragment {
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 result = false;
             }
 
@@ -366,13 +380,16 @@ public class TimelineFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
 
+            TimelineFragment timelineFragment = timeline_fragment_weak_reference.get();
+            if (timelineFragment == null) return;
+
             if(result){
-                refreshAdapterView();
+                timelineFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(timelineFragment.getActivity().findViewById(R.id.layout), timelineFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 
-            getDataProgress.setVisible(false);
+            timelineFragment.get_data_progress.setVisible(false);
         }
     }
 }

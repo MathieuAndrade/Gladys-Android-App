@@ -42,29 +42,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        if (id == R.id.DashBoard) {
+        if (id == R.id.dashboard) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new DashboardFragment()).commit();
             setToolbarTitle(R.string.dashboard);
 
             button.setVisible(false);
 
-        } else if (id == R.id.Rooms) {
+        } else if (id == R.id.rooms) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new RoomsFragment()).commit();
             setToolbarTitle(R.string.rooms);
 
             button.setVisible(false);
 
-        } else if (id == R.id.Timeline) {
+        } else if (id == R.id.timeline) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new TimelineFragment()).commit();
             setToolbarTitle(R.string.timeline);
 
-        } else if (id == R.id.Réveils) {
+        } else if (id == R.id.alarm) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AlarmFragment()).commit();
             setToolbarTitle(R.string.alarm);
+
+        } else if (id == R.id.brain) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout, new BrainFragment()).commit();
+            setToolbarTitle(R.string.brain);
+
+            button.setVisible(false);
 
         }  /*else if (id == R.id.Tchat) {
 
@@ -73,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             button.setVisible(false);
 
-        }*/ else if (id == R.id.Infos) {
+        }*/ else if (id == R.id.infos) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new InfosFragment()).commit();
             setToolbarTitle(R.string.info);
@@ -81,31 +88,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             button.setVisible(false);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     public void initialdeclarations(){
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
 
-        user = (TextView) header.findViewById(R.id.user);
+        user = header.findViewById(R.id.user);
     }
 
     public void setToolbarTitle(int title) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
     }
 
@@ -132,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -148,9 +155,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String prefuser = preferences.getString("nom" , "");
         String prefusername = preferences.getString("prenom", "");
 
+        String userName = "" + prefusername + " " + prefuser;
+
 
         if(!Objects.equals(prefuser, "") & !Objects.equals(prefusername, "")){
-            user.setText("" + prefusername + " " + prefuser);
+            user.setText(userName);
         }
         else if (!Objects.equals(prefusername, "") & Objects.equals(prefuser, "") ){
             user.setText(prefusername);

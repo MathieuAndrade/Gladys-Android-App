@@ -17,12 +17,13 @@
         android:paddingTop="30dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/event_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_home"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <com.github.vipulasri.timelineview.TimelineView
@@ -45,14 +46,15 @@
         android:layout_marginLeft="10dp">
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/timeline_date"
+            android:id="@+id/event_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="24 jan 13h"/>
+            android:text="24 jan 13h"
+            tools:ignore="HardcodedText" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/timeline_title"
+            android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

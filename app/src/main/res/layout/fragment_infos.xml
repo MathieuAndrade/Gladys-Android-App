@@ -299,6 +299,17 @@
                 android:textColor="@color/darker_gray"
                 android:textSize="@dimen/text_margin" />
 
+            <TextView
+                android:id="@+id/recycleview_animator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="web"
+                android:text="@string/recycleview_animator"
+                android:textColor="@color/darker_gray"
+                android:textSize="@dimen/text_margin" />
+
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

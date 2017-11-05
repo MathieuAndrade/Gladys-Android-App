@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -21,14 +19,13 @@ import java.util.List;
 
 public class DeviceRoomAdapter extends RecyclerView.Adapter<DeviceRoomAdapter.ViewHolder>  {
 
-    private List<Devicetype> devicetypeList;
+    private List<Devicetype> results;
     private Context context;
-    private int lastPosition = -1;
-    private AdapterCallback.AdapterCallbackDevicetype callbackDevicetype;
+    private AdapterCallback.AdapterCallbackDevicetype callback_devicetype;
 
-    public DeviceRoomAdapter(List<Devicetype> android, AdapterCallback.AdapterCallbackDevicetype callbackDevicetype) {
-        this.devicetypeList = android;
-        this.callbackDevicetype = callbackDevicetype;
+    public DeviceRoomAdapter(List<Devicetype> devicetypeList, AdapterCallback.AdapterCallbackDevicetype callbackDevicetype) {
+        this.results = devicetypeList;
+        this.callback_devicetype = callbackDevicetype;
     }
 
     @Override
@@ -41,67 +38,75 @@ public class DeviceRoomAdapter extends RecyclerView.Adapter<DeviceRoomAdapter.Vi
     @Override
     public void onBindViewHolder(DeviceRoomAdapter.ViewHolder holder, int position) {
 
-        final Long id = devicetypeList.get(position).getDevicetypeId();
-        String type = devicetypeList.get(position).getType();
-        String category = devicetypeList.get(position).getCategory();
-        String tag = devicetypeList.get(position).getTag();
-        Float last_value = devicetypeList.get(position).getLastValue();
+        final Long id = results.get(position).getDevicetypeId();
+        String device_id = context.getString(R.string.id)+ " " + results.get(position).getDevicetypeId();
+        String type = results.get(position).getType();
+        String device_type = context.getString(R.string.type) + " " + type;
+        String device_type_null = context.getString(R.string.type) + " " + context.getString(R.string.empty);
+        String category = results.get(position).getCategory();
+        String device_category = context.getString(R.string.category) + " " + category;
+        String device_category_null = context.getString(R.string.category) + " " + context.getString(R.string.empty);
+        String tag = results.get(position).getTag();
+        String device_tag = context.getString(R.string.tag) + " " + tag;
+        String device_tag_null = context.getString(R.string.tag) + " " + context.getString(R.string.empty);
+        Float last_value = results.get(position).getLastValue();
+        String device_last_value = context.getString(R.string.last_value) + " " + last_value;
 
-        holder.device_name.setText(devicetypeList.get(position).getDevicetypeName());
-        holder.device_id.setText(context.getString(R.string.id)+ " " + devicetypeList.get(position).getDevicetypeId());
+        holder.device_name.setText(results.get(position).getDevicetypeName());
+        holder.device_id.setText(device_id);
 
-        if(devicetypeList.get(position).getCategory() != null){
-            holder.logo.setImageResource(getLogo(devicetypeList.get(position).getCategory()));
+        if(results.get(position).getCategory() != null){
+            holder.device_logo.setImageResource(getLogo(results.get(position).getCategory()));
         }
 
         if(type != null){
-            holder.device_type.setText(context.getString(R.string.type) + " " + type);
-        } else {holder.device_type.setText(context.getString(R.string.type) + " " + context.getString(R.string.empty));}
+            holder.device_type.setText(device_type);
+        } else {holder.device_type.setText(device_type_null);}
 
         if(category != null){
-            holder.device_category.setText(context.getString(R.string.category) + " " + category);
-        } else {holder.device_category.setText(context.getString(R.string.category) + " " + context.getString(R.string.empty));}
+            holder.device_category.setText(device_category);
+        } else {holder.device_category.setText(device_category_null);}
 
         if(tag != null){
-            holder.device_tag.setText(context.getString(R.string.tag) + " " + tag);
-        } else {holder.device_tag.setText(context.getString(R.string.tag) + " " + context.getString(R.string.empty));}
+            holder.device_tag.setText(device_tag);
+        } else {holder.device_tag.setText(device_tag_null);}
 
-        holder.device_last_value.setText(context.getString(R.string.last_value) + " " + last_value);
+        holder.device_last_value.setText(device_last_value);
 
-        holder.active.setOnCheckedChangeListener(null);
+        holder.device_active.setOnCheckedChangeListener(null);
 
-        if(devicetypeList.get(position).getDisplay() == 1){
-            holder.active.setChecked(true);
-        } else {holder.active.setChecked(false);}
+        if(results.get(position).getDisplay() == 1){
+            holder.device_active.setChecked(true);
+        } else {holder.device_active.setChecked(false);}
 
-        holder.active.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.device_active.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                callbackDevicetype.onClickCallbackDevicetype(id, isChecked);
+                callback_devicetype.onClickCallbackDevicetype(id, isChecked);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return devicetypeList.size();
+        return results.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView device_name, device_id, device_type, device_category, device_tag, device_last_value;
-        private ImageView logo;
-        private CheckBox active;
+        private ImageView device_logo;
+        private CheckBox device_active;
         ViewHolder(View view) {
             super(view);
 
-            device_name = (TextView) view.findViewById(R.id.device_name);
-            device_id = (TextView) view.findViewById(R.id.device_id);
-            device_tag = (TextView) view.findViewById(R.id.device_tag);
-            device_type = (TextView) view.findViewById(R.id.device_type);
-            device_category =(TextView) view.findViewById(R.id.device_category);
-            device_last_value = (TextView) view.findViewById(R.id.device_last_value);
-            logo = (ImageView) view.findViewById(R.id.logo);
-            active = (CheckBox) view.findViewById(R.id.active);
+            device_name = view.findViewById(R.id.device_name);
+            device_id = view.findViewById(R.id.device_id);
+            device_tag = view.findViewById(R.id.device_tag);
+            device_type = view.findViewById(R.id.device_type);
+            device_category = view.findViewById(R.id.device_category);
+            device_last_value = view.findViewById(R.id.device_last_value);
+            device_logo = view.findViewById(R.id.device_logo);
+            device_active = view.findViewById(R.id.device_active);
         }
     }
 

@@ -28,28 +28,32 @@ import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
 import com.orm.SugarContext;
 import com.orm.SugarRecord;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.gladysinc.gladys.Utils.Connectivity.typeofconnection;
+
+import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 
 
 public class DashboardFragment extends Fragment implements AdapterCallback.AdapterCallbackDevicestate {
 
-    String url, preftoken;
+    String url, pref_token;
     Boolean connection;
-    RecyclerView recyclerView;
-    TextView noData;
+    RecyclerView recycler_view;
+    TextView no_data;
     List<Devicetype> data;
     DevicetypeByRoomAdapter adapter;
-    MenuItem getDataProgress;
-    SaveData saveData;
+    MenuItem get_data_progress;
+    SaveData save_data;
     Call<List<DevicetypeByRoom>> call;
 
     @Override
@@ -58,7 +62,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         setHasOptionsMenu(true);
         SugarContext.init(getContext());
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +71,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
                 getConnection();
                 if(connection){
-                    getDevicetypeByRoom();
+                    getAllDevicetypeByRoom();
                 }
             }
         });
@@ -76,16 +80,16 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.rv_fragment_dashboard);
-        recyclerView.setHasFixedSize(true);
+        recycler_view = view.findViewById(R.id.rv_fragment_dashboard);
+        recycler_view.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recycler_view.setLayoutManager(layoutManager);
 
-        noData = (TextView) v.findViewById(R.id.no_data);
+        no_data = view.findViewById(R.id.no_data);
 
-        return v;
+        return view;
     }
 
     public void onCreateAdapterView(){
@@ -93,66 +97,67 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         long count = SugarRecord.count(Devicetype.class);
 
         if(count>0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             data = SugarRecord.find(Devicetype.class, "display=?", "1");
             adapter = new DevicetypeByRoomAdapter(data, this);
-            recyclerView.setAdapter(adapter);
-            getDevicetypeByRoom();
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
+            getAllDevicetypeByRoom();
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
-            getDevicetypeByRoom();
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
+            getAllDevicetypeByRoom();
         }
     }
 
-    public void refreshAdapterView(){
+    public void onRefreshAdapterView(){
 
         long count = SugarRecord.count(Devicetype.class);
 
         if(count>0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             data = SugarRecord.find(Devicetype.class, "display=?", "1");
             adapter = new DevicetypeByRoomAdapter(data, this);
-            recyclerView.setAdapter(adapter);
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
         }
     }
 
-    public boolean getConnection(){
+    public void getConnection(){
         Connectivity.typeconnection(getContext());
 
-        if (Objects.equals(typeofconnection, "0")
-                | Objects.equals(typeofconnection, "1")
-                | Objects.equals(typeofconnection, "2")
-                | Objects.equals(typeofconnection, "3")
-                | Objects.equals(typeofconnection, "4") ){
+        if (Objects.equals(type_of_connection, "0")
+                | Objects.equals(type_of_connection, "1")
+                | Objects.equals(type_of_connection, "2")
+                | Objects.equals(type_of_connection, "3")
+                | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + typeofconnection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }else {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            preftoken = prefs.getString("token", "");
+            pref_token = prefs.getString("token", "");
             connection = true;
-            url = typeofconnection;}
+            url = type_of_connection;}
 
-        return (connection);
     }
 
-    public void getDevicetypeByRoom(){
+    public void getAllDevicetypeByRoom(){
 
-        getDataProgress.setVisible(true);
+        get_data_progress.setVisible(true);
 
-        final Retrofit retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(SelfSigningClientBuilder.getUnsafeOkHttpClient())
@@ -160,31 +165,31 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        call = service.getDevicetypeByRoom(preftoken);
+        call = service.getDevicetypeByRoom(pref_token);
 
         call.enqueue(new Callback<List<DevicetypeByRoom>>() {
             @Override
-            public void onResponse(Response<List<DevicetypeByRoom>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<DevicetypeByRoom>> call, Response<List<DevicetypeByRoom>> response) {
 
                 List<DevicetypeByRoom> devicetypeData = response.body();
 
                 if(devicetypeData != null){
-                    saveData = new SaveData();
-                    saveData.execute(devicetypeData);
+                    save_data = new SaveData(DashboardFragment.this);
+                    save_data.execute(devicetypeData);
                 } else {
-                    refreshAdapterView();
-                    getDataProgress.setVisible(false);
+                    onRefreshAdapterView();
+                    get_data_progress.setVisible(false);
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
 
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<DevicetypeByRoom>> call, Throwable t) {
                 if(!t.getMessage().equalsIgnoreCase("Socket closed")){
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
-                getDataProgress.setVisible(false);
+                get_data_progress.setVisible(false);
 
             }
         });
@@ -212,15 +217,19 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-            Call<Void> call = service.changeDevicestate(id, value, preftoken);
+            Call<Void> call = service.changeDevicestate(id, value, pref_token);
+
             call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Response<Void> response, Retrofit retrofit) {
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                public void onResponse(Call<Void> call,Response<Void> response) {
+                    if(response.code() == 200){
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }else{
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
                 }
-
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<Void> call,Throwable t) {
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             });
@@ -230,30 +239,34 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.main, menu);
-        getDataProgress = menu.findItem(R.id.miActionProgress);
+        get_data_progress = menu.findItem(R.id.miActionProgress);
 
         getConnection();
         if (connection) {
             onCreateAdapterView();
         }else {
-            refreshAdapterView();
+            onRefreshAdapterView();
         }
     }
 
-    public void onDestroyView(){
-        super.onDestroyView();
-        if (saveData != null && saveData.getStatus() != AsyncTask.Status.FINISHED){
-            saveData.cancel(true);
+    public void onStop(){
+        super.onStop();
+        if (save_data != null && save_data.getStatus() != AsyncTask.Status.FINISHED){
+            save_data.cancel(true);
         }
         if(call != null){
             call.cancel();
         }
     }
 
-    private class SaveData extends AsyncTask<List<DevicetypeByRoom>, Integer, Boolean>
+    private static class SaveData extends AsyncTask<List<DevicetypeByRoom>, Void, Boolean>
     {
+        private WeakReference<DashboardFragment> dashboard_fragment_weak_reference;
         boolean result;
 
+        SaveData(DashboardFragment context){
+            dashboard_fragment_weak_reference = new WeakReference<>(context);
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -263,32 +276,32 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         @Override
         protected final Boolean doInBackground(List<DevicetypeByRoom>... params) {
 
-            List<DevicetypeByRoom> DevicetypeData = params[0];
+            List<DevicetypeByRoom> devicetypeByRomm_list = params[0];
 
             try {
-                for (int i = 0; i < DevicetypeData.size(); i++) {
-                    new DevicetypeByRoom(DevicetypeData.get(i).getRoomName()
-                            , DevicetypeData.get(i).getHouse()
-                            , DevicetypeData.get(i).getRommId()
-                            , DevicetypeData.get(i).getDeviceTypes());
+                for (int i = 0; i < devicetypeByRomm_list.size(); i++) {
+                    new DevicetypeByRoom(devicetypeByRomm_list.get(i).getRoomName()
+                            , devicetypeByRomm_list.get(i).getHouse()
+                            , devicetypeByRomm_list.get(i).getRommId()
+                            , devicetypeByRomm_list.get(i).getDeviceTypes());
 
-                    List<Devicetype> deviceType2s = DevicetypeData.get(i).getDeviceTypes();
+                    List<Devicetype> devicetype_list = devicetypeByRomm_list.get(i).getDeviceTypes();
 
-                    for(int l = 0 ; l < deviceType2s.size(); l++) {
-                        Devicetype deviceType2 = new Devicetype(deviceType2s.get(l).getDevicetypeName()
-                                , deviceType2s.get(l).getDevicetypeId()
-                                , deviceType2s.get(l).getType()
-                                , deviceType2s.get(l).getCategory()
-                                , deviceType2s.get(l).getTag()
-                                , deviceType2s.get(l).getUnit()
-                                , deviceType2s.get(l).getMin()
-                                , deviceType2s.get(l).getMax()
-                                , deviceType2s.get(l).getDisplay()
-                                , deviceType2s.get(l).getSensor()
-                                , deviceType2s.get(l).getLastChanged()
-                                , deviceType2s.get(l).getLastValue()
-                                , DevicetypeData.get(i).getRommId()
-                                , DevicetypeData.get(i).getRoomName());
+                    for(int l = 0 ; l < devicetype_list.size(); l++) {
+                        Devicetype deviceType2 = new Devicetype(devicetype_list.get(l).getDevicetypeName()
+                                , devicetype_list.get(l).getDevicetypeId()
+                                , devicetype_list.get(l).getType()
+                                , devicetype_list.get(l).getCategory()
+                                , devicetype_list.get(l).getTag()
+                                , devicetype_list.get(l).getUnit()
+                                , devicetype_list.get(l).getMin()
+                                , devicetype_list.get(l).getMax()
+                                , devicetype_list.get(l).getDisplay()
+                                , devicetype_list.get(l).getSensor()
+                                , devicetype_list.get(l).getLastChanged()
+                                , devicetype_list.get(l).getLastValue()
+                                , devicetypeByRomm_list.get(i).getRommId()
+                                , devicetypeByRomm_list.get(i).getRoomName());
 
                         Long number = (SugarRecord.count(Devicetype.class, "devicetype_id=?", new String[]{deviceType2.getDevicetypeId().toString()}));
 
@@ -307,12 +320,13 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                         }
 
                     }
+
                     if (isCancelled()) break;
                 }
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 result = false;
             }
 
@@ -322,13 +336,16 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         @Override
         protected void onPostExecute(Boolean result) {
 
+            DashboardFragment dashboardFragment = dashboard_fragment_weak_reference.get();
+            if (dashboardFragment == null) return;
+
             if(result){
-                refreshAdapterView();
+                dashboardFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(dashboardFragment.getActivity().findViewById(R.id.layout), dashboardFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 
-            getDataProgress.setVisible(false);
+            dashboardFragment.get_data_progress.setVisible(false);
         }
     }
 }

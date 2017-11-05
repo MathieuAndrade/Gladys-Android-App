@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,12 +19,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private List<DevicetypeByRoom> results;
     private Context context;
-    private int lastPosition = -1;
-    private AdapterCallback.AdapterCallbackRoom callbackRoom;
+    private AdapterCallback.AdapterCallbackRoom callback_room;
 
-    public RoomAdapter(List<DevicetypeByRoom> android, AdapterCallback.AdapterCallbackRoom callbackRoom) {
-        this.results = android;
-        this.callbackRoom = callbackRoom;
+    public RoomAdapter(List<DevicetypeByRoom> roomList, AdapterCallback.AdapterCallbackRoom callbackRoom) {
+        this.results = roomList;
+        this.callback_room = callbackRoom;
         }
 
     @Override
@@ -41,14 +38,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         final Long id = results.get(position).getRommId();
         final String roomName = results.get(position).getRoomName();
+        String house = context.getString(R.string.house) + " " + results.get(position).getHouse();
 
         holder.room_name.setText(results.get(position).getRoomName());
-        holder.room_house.setText(context.getString(R.string.house) + " " + results.get(position).getHouse());
+        holder.room_house.setText(house);
 
-        holder.deviceButoon.setOnClickListener(new View.OnClickListener() {
+        holder.device_butoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callbackRoom.onClickCallbackRoom(id, roomName);
+                callback_room.onClickCallbackRoom(id, roomName);
             }
         });
 
@@ -61,13 +59,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView room_name,room_house;
-        private ImageButton deviceButoon;
+        private ImageButton device_butoon;
         ViewHolder(View view) {
             super(view);
 
-            deviceButoon = (ImageButton)view.findViewById(R.id.device_button);
-            room_name = (TextView)view.findViewById(R.id.Room_name);
-            room_house = (TextView)view.findViewById(R.id.house_id);
+            device_butoon = view.findViewById(R.id.device_button);
+            room_name = view.findViewById(R.id.room_name);
+            room_house = view.findViewById(R.id.house_id);
         }
     }
 

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +19,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     private List<Event> results;
     private Context context;
-    private int lastPosition = -1;
 
-    public EventAdapter(List<Event> android){this.results = android;}
+    public EventAdapter(List<Event> eventList){this.results = eventList;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,73 +32,73 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
 
-        holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event, R.color.colorAccent));
-        holder.timeline_title.setText(results.get(position).getName());
-        holder.timeline_date.setText(DateTimeUtils.getRelativeTimeSpan(results.get(position).getDatetime(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+        holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event, R.color.colorAccent));
+        holder.event_title.setText(results.get(position).getName());
+        holder.event_date.setText(DateTimeUtils.getRelativeTimeSpan(results.get(position).getDatetime()));
 
         switch (results.get(position).getCode()) {
             case "back-at-home":
-                holder.imageCode.setImageResource(R.drawable.ic_home);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_home);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "left-home":
-                holder.imageCode.setImageResource(R.drawable.ic_home);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_home);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "left-area":
-                holder.imageCode.setImageResource(R.drawable.ic_location_zone);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_location_zone);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "enter-area":
-                holder.imageCode.setImageResource(R.drawable.ic_location_zone);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_location_zone);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "alarm":
-                holder.imageCode.setImageResource(R.drawable.ic_alarm);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_alarm);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "going-to-sleep":
-                holder.imageCode.setImageResource(R.drawable.ic_bed_blue);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_bed_blue);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "wake-up":
-                holder.imageCode.setImageResource(R.drawable.ic_bed_green);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_bed_green);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "gladys-installed":
-                holder.imageCode.setImageResource(R.drawable.ic_gladys_install);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_gladys_install);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "gladys-updated":
-                holder.imageCode.setImageResource(R.drawable.ic_gladys_maj);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_gladys_maj);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "sunrise":
-                holder.imageCode.setImageResource(R.drawable.ic_sun);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_sun);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "sunset":
-                holder.imageCode.setImageResource(R.drawable.ic_sun);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
-                holder.mTimelineView.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_sun);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
+                holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "devicetype-new-value":
-                holder.imageCode.setImageResource(R.drawable.ic_new_devicetype_value);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_new_devicetype_value);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "user-seen-at-home":
-                holder.imageCode.setImageResource(R.drawable.ic_home);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_home);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
             case "house-mode-changed":
-                holder.imageCode.setImageResource(R.drawable.ic_home);
-                holder.timeline_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                holder.event_logo.setImageResource(R.drawable.ic_home);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
         }
 
@@ -119,18 +116,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TimelineView mTimelineView;
-        private TextView timeline_title, timeline_date;
-        private ImageView imageCode;
+        TimelineView event_view;
+        private TextView event_title, event_date;
+        private ImageView event_logo;
 
         ViewHolder(View itemView, int viewType) {
             super(itemView);
 
-            timeline_title = (TextView) itemView.findViewById(R.id.timeline_title);
-            timeline_date = (TextView) itemView.findViewById(R.id.timeline_date);
-            imageCode = (ImageView) itemView.findViewById(R.id.imageView2);
-            mTimelineView = (TimelineView) itemView.findViewById(R.id.time_marker);
-            mTimelineView.initLine(viewType);
+            event_title = itemView.findViewById(R.id.event_name);
+            event_date = itemView.findViewById(R.id.event_date);
+            event_logo = itemView.findViewById(R.id.event_logo);
+            event_view = itemView.findViewById(R.id.time_marker);
+            event_view.initLine(viewType);
         }
     }
 

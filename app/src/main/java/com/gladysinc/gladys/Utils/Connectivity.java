@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Connectivity extends AppCompatActivity{
 
-    public static String typeofconnection;
+    public static String type_of_connection;
 
     public Connectivity() {}
 
@@ -42,9 +42,10 @@ public class Connectivity extends AppCompatActivity{
 
                 chekerprefernceslocal(context);
             } else {chekerpreferncesnat(context); }
-        } else{typeofconnection = "0";}
+        } else{
+            type_of_connection = "0";}
 
-        return typeofconnection;
+        return type_of_connection;
     }
 
     private static void chekerprefernceslocal(Context context){
@@ -55,8 +56,9 @@ public class Connectivity extends AppCompatActivity{
         String token = prefs.getString("token", "");
 
         if(!Objects.equals(ip, "") & !Objects.equals(port, "") & !Objects.equals(token, "")){
-            typeofconnection = "http://" + ip + ":" + port  ;
-        } else {typeofconnection = "1";}
+            type_of_connection = "http://" + ip + ":" + port  ;
+        } else {
+            type_of_connection = "1";}
     }
 
     private static void chekerpreferncesnat(Context context){
@@ -73,14 +75,17 @@ public class Connectivity extends AppCompatActivity{
         if (nat) {
             if (!Objects.equals(dns, "") & !Objects.equals(token, "")) {
                 if (https){
-                    typeofconnection = "https://" + dns;
+                    type_of_connection = "https://" + dns;
                 }else {
                     if (!Objects.equals(portnat, "")) {
-                        typeofconnection = "http://" + dns + ":" + portnat;
-                    }else {typeofconnection = "4";}
+                        type_of_connection = "http://" + dns + ":" + portnat;
+                    }else {
+                        type_of_connection = "4";}
                 }
-            } else {typeofconnection = "3";}
-        } else {typeofconnection = "2";}
+            } else {
+                type_of_connection = "3";}
+        } else {
+            type_of_connection = "2";}
     }
 
 }

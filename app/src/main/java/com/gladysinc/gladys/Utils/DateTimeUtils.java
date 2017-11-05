@@ -4,19 +4,22 @@ import android.text.format.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateTimeUtils {
 
-    public static String parseDateTime(String dateString, String originalFormat, String outputFromat){
+    public static String parseDateTime(String dateString){
 
-        SimpleDateFormat formatter = new SimpleDateFormat(originalFormat, Locale.FRANCE);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyyHH:mm", Locale.FRANCE);
         Date date;
         try {
             date = formatter.parse(dateString);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat(outputFromat, new Locale("FRENCH"));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", new Locale("FRENCH"));
 
             return dateFormat.format(date);
 
@@ -26,14 +29,16 @@ public class DateTimeUtils {
         }
     }
 
-    public static String getRelativeTimeSpan(String dateString, String originalFormat){
+    public static String getRelativeTimeSpan(String dateString){
 
-        SimpleDateFormat formatter = new SimpleDateFormat(originalFormat, Locale.FRANCE);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.FRENCH);
+        formatter.setTimeZone(TimeZone.getTimeZone(getCurrentTimeZone()));
         Date date;
         try {
+            long now = System.currentTimeMillis();
             date = formatter.parse(dateString);
 
-            return DateUtils.getRelativeTimeSpanString(date.getTime()).toString();
+            return DateUtils.getRelativeTimeSpanString(date.getTime(), now, DateUtils.SECOND_IN_MILLIS).toString();
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -41,63 +46,27 @@ public class DateTimeUtils {
         }
     }
 
+    private static String getCurrentTimeZone(){
+        TimeZone tz = Calendar.getInstance().getTimeZone();
+        return tz.getDisplayName();
+    }
+
     public static String getDay (String dayofweek){
 
-        String date = null;
+        String date;
+        String[] days = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
+        date = Arrays.asList(days).get(Integer.parseInt(dayofweek));
 
-        switch (dayofweek){
-            case "0":
-                date = "Dimanche";
-                break;
-            case "1":
-                date = "Lundi";
-                break;
-            case "2":
-                date = "Mardi";
-                break;
-            case "3":
-                date = "Mercredi";
-                break;
-            case "4":
-                date = "Jeudi";
-                break;
-            case "5":
-                date = "Vendredi";
-                break;
-            case "6":
-                date = "Samedi";
-                break;
-        }
         return date;
     }
 
     public static String getIdDay (String dayofweek){
 
-        String date = null;
+        String date;
+        String[] days = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
+        Integer index = Arrays.asList(days).indexOf(dayofweek);
+        date = index.toString();
 
-        switch (dayofweek){
-            case "Dimanche":
-                date = "0";
-                break;
-            case "Lundi":
-                date = "1";
-                break;
-            case "Mardi":
-                date = "2";
-                break;
-            case "Mercredi":
-                date = "3";
-                break;
-            case "Jeudi":
-                date = "4";
-                break;
-            case "Vendredi":
-                date = "5";
-                break;
-            case "Samedi":
-                date = "6";
-                break;
-        }
         return date;
     }
 }

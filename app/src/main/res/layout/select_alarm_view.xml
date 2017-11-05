@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/specific_alarm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/specific_date_button"
@@ -22,12 +22,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:backgroundTint="@color/colorAccent"
-        android:text="@string/new_alarm"
+        android:text="@string/new_object"
         android:textColor="@color/white"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/recurring_alarm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/recurring_button"
@@ -44,12 +44,12 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/specific_date_button"
         android:backgroundTint="@color/colorAccent"
-        android:text="@string/new_alarm"
+        android:text="@string/new_object"
         android:textColor="@color/white"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/cron_alarm_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cron_button"
@@ -65,7 +65,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/recurring_button"
         android:backgroundTint="@color/colorAccent"
-        android:text="@string/new_alarm"
+        android:text="@string/new_object"
         android:textColor="@color/white"
         android:textSize="12sp" />
 

@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/miActionProgress"
-        android:title="Loading..."
+        android:title="@string/loading"
         android:visible="false"
         app:actionLayout="@layout/action_view_progress"
         app:showAsAction="ifRoom" />

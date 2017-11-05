@@ -6,7 +6,7 @@
     tools:context="com.gladysinc.gladys.TchatFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/tchatrv"
+        android:id="@+id/rv_tchat_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/linearlayout"
@@ -26,20 +26,13 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <EditText
-            android:id="@+id/box"
+            android:id="@+id/message_box"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableRight="@drawable/ic_send"
             android:hint="@string/enter_message"
             android:inputType="text" />
-
-        <ImageButton
-            android:id="@+id/send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_send"
-            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

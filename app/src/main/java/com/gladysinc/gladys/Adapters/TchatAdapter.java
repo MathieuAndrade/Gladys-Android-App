@@ -1,6 +1,5 @@
 package com.gladysinc.gladys.Adapters;
 
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +35,12 @@ public class TchatAdapter  extends RecyclerView.Adapter<TchatAdapter.ViewHolder>
         return results.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
         private TextView text_response;
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
 
-            text_response = (TextView)view.findViewById(R.id.textmessage);
+            text_response = view.findViewById(R.id.message);
         }
     }
 }

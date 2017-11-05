@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/cronName"
+        android:id="@+id/cron_alarm_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,12 +15,12 @@
         android:hint="@string/name" />
 
     <EditText
-        android:id="@+id/cronRule"
+        android:id="@+id/cron_alarm_rule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/cronName"
-        android:layout_alignStart="@+id/cronName"
-        android:layout_below="@+id/cronName"
+        android:layout_alignEnd="@+id/cron_alarm_name"
+        android:layout_alignStart="@+id/cron_alarm_name"
+        android:layout_below="@+id/cron_alarm_name"
         android:hint="@string/cron_example"
         android:layout_marginTop="35dp"
         />

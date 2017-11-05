@@ -40,41 +40,44 @@ import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
 import com.orm.SugarRecord;
 
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.gladysinc.gladys.Utils.Connectivity.typeofconnection;
+import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 
 
 public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCallbackAlarm {
 
-    String url, preftoken;
+    String url, pref_token;
     Boolean connection;
-    RecyclerView recyclerView;
-    EditText alarm_spe_name, alarm_spe_time, alarm_spe_date;
-    EditText alarm_rec_name, alarm_rec_time;
+    RecyclerView recycler_view;
+    EditText spe_alarm_name, spe_alarm_time, spe_alarm_date;
+    EditText rec_alarm_name, rec_alarm_time;
     String spe_name, rec_name, date_time, day_of_week, id_of_day;
     String time, date;
     EditText cron_name, cron_rule;
-    String cronrule_name, rule;
-    TextView noData;
+    String cron_rule_name, rule;
+    TextView no_data;
     AlarmAdapter adapter;
-    MenuItem getDataProgress;
-    SaveData saveData;
+    MenuItem get_data_progress;
+    SaveData save_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +86,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                 getConnection();
                 if (connection) {
-                    getAlarms();
+                    getAllAlarms();
                 }
             }
         });
@@ -91,21 +94,22 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_alarm, container, false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.rv_fragment_alarm);
-        recyclerView.setHasFixedSize(true);
+        View view = inflater.inflate(R.layout.fragment_alarm, container, false);
+
+        recycler_view = view.findViewById(R.id.rv_fragment_alarm);
+        recycler_view.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recycler_view.setLayoutManager(layoutManager);
 
-        noData = (TextView) v.findViewById(R.id.no_data);
+        no_data = view.findViewById(R.id.no_data);
 
-        return v;
+        return view;
     }
 
-    public void getAlarms() {
+    public void getAllAlarms() {
 
-        getDataProgress.setVisible(true);
+        get_data_progress.setVisible(true);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -115,30 +119,29 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        Call<List<Alarm>> call = service.getAlarms(preftoken);
+        Call<List<Alarm>> call = service.getAlarms(pref_token);
 
-        call.enqueue(new Callback<List<Alarm>>(){
+        call.enqueue(new Callback<List<Alarm>>() {
             @Override
-            public void onResponse(Response<List<Alarm>> response, Retrofit retrofit) {
-
+            public void onResponse(Call<List<Alarm>> call, Response<List<Alarm>> response) {
                 List<Alarm> AlarmData = response.body();
 
                 if(AlarmData != null){
-                    saveData = new SaveData();
-                    saveData.execute(AlarmData);
+                    save_data = new SaveData(AlarmFragment.this);
+                    save_data.execute(AlarmData);
                 } else {
-                    refreshAdapterView();
-                    getDataProgress.setVisible(false);
+                    onRefreshAdapterView();
+                    get_data_progress.setVisible(false);
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<Alarm>> call, Throwable t) {
                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
             }
         });
+
     }
 
     public void alarmDialog(){
@@ -148,9 +151,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 .show();
 
 
-        Button specific_date_button = (Button) dialog.getCustomView().findViewById(R.id.specific_date_button);
-        Button recurring = (Button) dialog.getCustomView().findViewById(R.id.recurring_button);
-        final Button cron = (Button) dialog.getCustomView().findViewById(R.id.cron_button);
+        Button specific_date_button = dialog.getCustomView().findViewById(R.id.specific_date_button);
+        Button recurring = dialog.getCustomView().findViewById(R.id.recurring_button);
+        final Button cron = dialog.getCustomView().findViewById(R.id.cron_button);
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)  specific_date_button.getLayoutParams();
         RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)  recurring.getLayoutParams();
@@ -202,7 +205,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
                         getConnection();
                         if (connection) {
-                            if (alarm_rec_name.getText().toString().isEmpty() | alarm_rec_time.getText().toString().isEmpty()){
+                            if (rec_alarm_name.getText().toString().isEmpty() | rec_alarm_time.getText().toString().isEmpty()){
                                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             }else {
                                 id_of_day = DateTimeUtils.getIdDay(day_of_week);
@@ -214,29 +217,29 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 .negativeText(R.string.negative_button)
                 .show();
 
-        alarm_rec_name = (EditText) dialog.getCustomView().findViewById(R.id.cronName);
-        alarm_rec_name.addTextChangedListener(new TextWatcher() {
+        rec_alarm_name = dialog.getCustomView().findViewById(R.id.recurring_alarm_name);
+        rec_alarm_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                rec_name = alarm_rec_name.getText().toString();
+                rec_name = rec_alarm_name.getText().toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        alarm_rec_time = (EditText) dialog.findViewById(R.id.alarmRecTime);
-        alarm_rec_time.setOnClickListener(new View.OnClickListener() {
+        rec_alarm_time = (EditText) dialog.findViewById(R.id.recurring_alarm_time);
+        rec_alarm_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePicker("rec");
             }
         });
 
-        Spinner alarm_rec_day = (Spinner) dialog.getCustomView().findViewById(R.id.alarmRecDay);
+        Spinner alarm_rec_day = dialog.getCustomView().findViewById(R.id.recurring_alarm_day);
         alarm_rec_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -262,10 +265,10 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                         getConnection();
                         if (connection) {
 
-                            if (alarm_spe_name.getText().toString().isEmpty() | alarm_spe_time.getText().toString().isEmpty() | alarm_spe_date.getText().toString().isEmpty()){
+                            if (spe_alarm_name.getText().toString().isEmpty() | spe_alarm_time.getText().toString().isEmpty() | spe_alarm_date.getText().toString().isEmpty()){
                                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             }else {
-                                date_time = DateTimeUtils.parseDateTime(date + time, "dd/MM/yyyyHH:mm", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                                date_time = DateTimeUtils.parseDateTime(date + time);
                                 createAlarmSpe();
                             }
                         }
@@ -274,56 +277,56 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 .negativeText(R.string.negative_button)
                 .show();
 
-        alarm_spe_name = (EditText) dialog.getCustomView().findViewById(R.id.alarmSpeName);
-        alarm_spe_name.addTextChangedListener(new TextWatcher() {
+        spe_alarm_name = dialog.getCustomView().findViewById(R.id.specific_alarm_name);
+        spe_alarm_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                spe_name = alarm_spe_name.getText().toString();
+                spe_name = spe_alarm_name.getText().toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        alarm_spe_time = (EditText) dialog.findViewById(R.id.alarmSpeTime);
-        alarm_spe_time.setOnClickListener(new View.OnClickListener() {
+        spe_alarm_time = (EditText) dialog.findViewById(R.id.specific_alarm_time);
+        spe_alarm_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePicker("spe");
             }
         });
 
-        alarm_spe_time.addTextChangedListener(new TextWatcher() {
+        spe_alarm_time.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                time = alarm_spe_time.getText().toString();
+                time = spe_alarm_time.getText().toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        alarm_spe_date = (EditText) dialog.findViewById(R.id.alarmSpeDate);
-        alarm_spe_date.setOnClickListener(new View.OnClickListener() {
+        spe_alarm_date = (EditText) dialog.findViewById(R.id.specific_alarm_date);
+        spe_alarm_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePicker();
             }
         });
 
-        alarm_spe_date.addTextChangedListener(new TextWatcher() {
+        spe_alarm_date.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                date = alarm_spe_date.getText().toString();
+                date = spe_alarm_date.getText().toString();
             }
 
             @Override
@@ -347,7 +350,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                             if (cron_name.getText().toString().isEmpty() | cron_rule.getText().toString().isEmpty()){
                                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.all_fields), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                             }else {
-                                createCronRule(cronrule_name, rule);
+                                createCronRule(cron_rule_name, rule);
                             }
                         }
                     }
@@ -355,7 +358,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 .negativeText(R.string.negative_button)
                 .show();
 
-        cron_name =(EditText) dialog.findViewById(R.id.cronName);
+        cron_name =(EditText) dialog.findViewById(R.id.cron_alarm_name);
         cron_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -364,7 +367,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                cronrule_name = cron_name.getText().toString();
+                cron_rule_name = cron_name.getText().toString();
             }
 
             @Override
@@ -373,7 +376,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             }
         });
 
-        cron_rule =(EditText) dialog.findViewById(R.id.cronRule);
+        cron_rule =(EditText) dialog.findViewById(R.id.cron_alarm_rule);
         cron_rule.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -410,15 +413,32 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                     .show();
         }
 
-        TimePicker timePicker = (TimePicker) dialog.getCustomView().findViewById(R.id.timePicker);
+        TimePicker timePicker = dialog.getCustomView().findViewById(R.id.time_picker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                time = hourOfDay + ":" + minute;
+
+                String hour;
+                String min;
+
+                if (hourOfDay < 10 ){
+                    hour = "0" + hourOfDay;
+                }else {
+                    hour = String.valueOf(hourOfDay);
+                }
+
+                if (minute < 10 ){
+                    min = "0" + minute;
+                }else {
+                    min = String.valueOf(minute);
+                }
+
+                time = hour + ":" + min;
 
                 if (Objects.equals(type_of_alarm, "rec")){
-                    alarm_rec_time.setText(time);
-                }else {alarm_spe_time.setText(time);}
+                    rec_alarm_time.setText(time);
+                }else {
+                    spe_alarm_time.setText(time);}
             }
         });
     }
@@ -441,14 +461,14 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                     .show();
         }
 
-        DatePicker datePicker = (DatePicker) dialog.getCustomView().findViewById(R.id.datePicker);
+        DatePicker datePicker = dialog.getCustomView().findViewById(R.id.date_picker);
         Calendar calendar = Calendar.getInstance();
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 int month = monthOfYear + 1;
                 date = dayOfMonth + "/" + month + "/" + year;
-                alarm_spe_date.setText(date);
+                spe_alarm_date.setText(date);
             }
         });
 
@@ -464,19 +484,22 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        Call<Alarm> call = service.createAlarmRec(rec_name, time, id_of_day, true, preftoken);
+        Call<Alarm> call = service.createAlarmRec(rec_name, time, id_of_day, true, pref_token);
 
         call.enqueue(new Callback<Alarm>() {
             @Override
-            public void onResponse(Response<Alarm> response, Retrofit retrofit) {
+            public void onResponse(Call<Alarm> call, Response<Alarm> response) {
 
-                getAlarms();
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+                if (response.code() == 201){
+                    getAllAlarms();
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }else {
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Alarm> call, Throwable t) {
                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
@@ -492,19 +515,22 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        Call<Alarm> call = service.createAlarmSpe(spe_name, date_time, true, preftoken);
+        Call<Alarm> call = service.createAlarmSpe(spe_name, date_time, true, pref_token);
 
         call.enqueue(new Callback<Alarm>() {
         @Override
-            public void onResponse(Response<Alarm> response, Retrofit retrofit) {
+            public void onResponse(Call<Alarm> call, Response<Alarm> response) {
 
-                getAlarms();
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
+                if (response.code() == 201){
+                    getAllAlarms();
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }else {
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Alarm> call, Throwable t) {
                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
@@ -521,43 +547,46 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-        Call<Alarm> call = service.createCronRule(name, rule, true, preftoken);
+        Call<Alarm> call = service.createCronRule(name, rule, pref_token);
 
         call.enqueue(new Callback<Alarm>() {
             @Override
-            public void onResponse(Response<Alarm> response, Retrofit retrofit) {
+            public void onResponse(Call<Alarm> call, Response<Alarm> response) {
 
-                getAlarms();
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (response.code() == 201){
+                    getAllAlarms();
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }else{
+                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                }
 
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<Alarm> call, Throwable t) {
                 Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
 
-    public boolean getConnection(){
+    public void getConnection(){
         Connectivity.typeconnection(getContext());
 
-        if (Objects.equals(typeofconnection, "0")
-                | Objects.equals(typeofconnection, "1")
-                | Objects.equals(typeofconnection, "2")
-                | Objects.equals(typeofconnection, "3")
-                | Objects.equals(typeofconnection, "4") ){
+        if (Objects.equals(type_of_connection, "0")
+                | Objects.equals(type_of_connection, "1")
+                | Objects.equals(type_of_connection, "2")
+                | Objects.equals(type_of_connection, "3")
+                | Objects.equals(type_of_connection, "4") ){
 
             connection = false;
-            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + typeofconnection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
         }else {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            preftoken = prefs.getString("token", "");
+            pref_token = prefs.getString("token", "");
             connection = true;
-            url = typeofconnection;}
+            url = type_of_connection;}
 
-        return (connection);
     }
 
     public void onCreateAdapterView(){
@@ -565,36 +594,38 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         long count = SugarRecord.count(Alarm.class);
 
         if(count>0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             List<Alarm> data = SugarRecord.listAll(Alarm.class);
             adapter = new AlarmAdapter(data, this);
-            recyclerView.setAdapter(adapter);
-            getAlarms();
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
+            getAllAlarms();
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
-            getAlarms();
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
+            getAllAlarms();
         }
     }
 
-    public void refreshAdapterView(){
+    public void onRefreshAdapterView(){
 
         long count = SugarRecord.count(Alarm.class);
 
         if(count>0) {
-            recyclerView.setVisibility(View.VISIBLE);
-            noData.setVisibility(View.INVISIBLE);
+            recycler_view.setVisibility(View.VISIBLE);
+            no_data.setVisibility(View.INVISIBLE);
 
             List<Alarm> data = SugarRecord.listAll(Alarm.class);
             adapter = new AlarmAdapter(data, this);
-            recyclerView.setAdapter(adapter);
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+            recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
-            recyclerView.setVisibility(View.INVISIBLE);
-            noData.setVisibility(View.VISIBLE);
-            noData.setText(R.string.nodata);
+            recycler_view.setVisibility(View.INVISIBLE);
+            no_data.setVisibility(View.VISIBLE);
+            no_data.setText(R.string.no_data);
         }
     }
 
@@ -603,13 +634,13 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         inflater.inflate(R.menu.main, menu);
         MenuItem button = menu.findItem(R.id.add_button);
         button.setVisible(true);
-        getDataProgress = menu.findItem(R.id.miActionProgress);
+        get_data_progress = menu.findItem(R.id.miActionProgress);
 
         getConnection();
         if (connection) {
             onCreateAdapterView();
         }else {
-            refreshAdapterView();
+            onRefreshAdapterView();
         }
     }
 
@@ -654,32 +685,42 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
             RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-            Call<Void> call = service.deleteAlarm(alarm_id, preftoken);
+            Call<Void> call = service.deleteAlarm(alarm_id, pref_token);
 
             call.enqueue(new Callback<Void>() {
             @Override
-                public void onResponse(Response<Void> response, Retrofit retrofit) {
-                    getAlarms();
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_removed), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
+                public void onResponse(Call<Void> call, Response<Void> response) {
 
+                    if (response.code() == 200){
+                        getAllAlarms();
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.alarm_removed), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    } else {
+                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+
+                }
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 }
             });
         }
     }
 
-    public void onDestroyView(){
-        super.onDestroyView();
-        if (saveData != null && saveData.getStatus() != AsyncTask.Status.FINISHED)
-            saveData.cancel(true);
+    public void onStop(){
+        super.onStop();
+        if (save_data != null && save_data.getStatus() != AsyncTask.Status.FINISHED)
+            save_data.cancel(true);
     }
 
-    private class SaveData extends AsyncTask<List<Alarm>, Integer, Boolean>
+    private static class SaveData extends AsyncTask<List<Alarm>, Void, Boolean>
     {
+        private WeakReference<AlarmFragment> alarm_fragment_weak_reference;
         boolean result;
+
+        SaveData(AlarmFragment context){
+            alarm_fragment_weak_reference = new WeakReference<>(context);
+        }
 
         @Override
         protected void onPreExecute() {
@@ -714,7 +755,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
                 result = true;
 
             } catch (Exception e){
-                Snackbar.make(getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(alarm_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 result = false;
             }
 
@@ -724,13 +765,16 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         @Override
         protected void onPostExecute(Boolean result) {
 
+            AlarmFragment alarmFragment = alarm_fragment_weak_reference.get();
+            if (alarmFragment == null) return;
+
             if(result){
-                refreshAdapterView();
+                alarmFragment.onRefreshAdapterView();
             } else {
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(alarmFragment.getActivity().findViewById(R.id.layout), alarmFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
 
-            getDataProgress.setVisible(false);
+            alarmFragment.get_data_progress.setVisible(false);
         }
     }
 }

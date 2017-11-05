@@ -15,9 +15,12 @@ import com.orm.SugarRecord;
 
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+
 public class DeviceActivity extends AppCompatActivity implements AdapterCallback.AdapterCallbackDevicetype {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recycler_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,19 +46,20 @@ public class DeviceActivity extends AppCompatActivity implements AdapterCallback
     }
 
     public void initialdeclarations(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_device);
+        Toolbar toolbar = findViewById(R.id.toolbar_device);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv_device);
-        recyclerView.setHasFixedSize(true);
+        recycler_view = findViewById(R.id.device_rv);
+        recycler_view.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext().getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recycler_view.setLayoutManager(layoutManager);
     }
 
     public void adapterView(List<Devicetype> data){
 
         DeviceRoomAdapter adapter = new DeviceRoomAdapter(data, this);
-        recyclerView.setAdapter(adapter);
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+        recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
     }
 
     public void onClickCallbackDevicetype(Long id, boolean active){

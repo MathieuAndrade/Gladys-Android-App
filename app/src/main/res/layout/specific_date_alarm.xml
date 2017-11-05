@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/alarmSpeName"
+        android:id="@+id/specific_alarm_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,11 +15,11 @@
         android:hint="@string/name" />
 
     <EditText
-        android:id="@+id/alarmSpeTime"
+        android:id="@+id/specific_alarm_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/alarmSpeName"
-        android:layout_below="@+id/alarmSpeName"
+        android:layout_alignStart="@+id/specific_alarm_name"
+        android:layout_below="@+id/specific_alarm_name"
         android:layout_marginTop="16dp"
         android:drawableEnd="@drawable/ic_clock"
         android:ems="10"
@@ -27,11 +27,11 @@
         android:focusable="false"/>
 
     <EditText
-        android:id="@+id/alarmSpeDate"
+        android:id="@+id/specific_alarm_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/alarmSpeTime"
-        android:layout_below="@+id/alarmSpeTime"
+        android:layout_alignStart="@+id/specific_alarm_time"
+        android:layout_below="@+id/specific_alarm_time"
         android:layout_marginTop="21dp"
         android:drawableEnd="@drawable/ic_date"
         android:ems="10"

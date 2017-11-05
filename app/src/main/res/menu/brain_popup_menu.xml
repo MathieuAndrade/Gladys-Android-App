@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/approve_button"
+        android:checkable="false"
+        android:title="@string/approve_button" />
+    <item
+        android:id="@+id/reject_button"
+        android:checkable="false"
+        android:title="@string/reject_button" />
+    <item
+        android:id="@+id/set_label_button"
+        android:checkable="false"
+        android:title="@string/set_label" />
+
+</menu>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/cronName"
+        android:id="@+id/recurring_alarm_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,22 +15,22 @@
         android:hint="@string/name" />
 
     <Spinner
-        android:id="@+id/alarmRecDay"
+        android:id="@+id/recurring_alarm_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/cronName"
-        android:layout_alignStart="@+id/cronName"
-        android:layout_below="@+id/cronName"
+        android:layout_alignEnd="@+id/recurring_alarm_name"
+        android:layout_alignStart="@+id/recurring_alarm_name"
+        android:layout_below="@+id/recurring_alarm_name"
         android:layout_marginTop="35dp"
         android:entries="@array/days" />
 
     <EditText
-        android:id="@+id/alarmRecTime"
+        android:id="@+id/recurring_alarm_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/alarmRecDay"
-        android:layout_alignStart="@+id/cronName"
-        android:layout_below="@+id/alarmRecDay"
+        android:layout_alignEnd="@+id/recurring_alarm_day"
+        android:layout_alignStart="@+id/recurring_alarm_name"
+        android:layout_below="@+id/recurring_alarm_day"
         android:layout_marginTop="33dp"
         android:drawableEnd="@drawable/ic_clock"
         android:ems="10"
@@ -40,12 +40,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/alarmRecDay"
+        android:layout_below="@+id/recurring_alarm_day"
         android:background="@color/darker_gray"
-        android:layout_alignStart="@+id/alarmRecDay"
-        android:layout_alignEnd="@+id/alarmRecDay"
+        android:layout_alignStart="@+id/recurring_alarm_day"
+        android:layout_alignEnd="@+id/recurring_alarm_day"
         android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
-        android:id="@+id/textView3" />
+        android:layout_marginEnd="3dp" />
 
 </RelativeLayout>

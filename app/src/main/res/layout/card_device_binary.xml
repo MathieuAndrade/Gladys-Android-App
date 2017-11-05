@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -16,11 +17,12 @@
         android:paddingTop="12dp">
 
         <ImageView
-            android:id="@+id/logo_binary"
+            android:id="@+id/device_binary_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_devices" />
+            app:srcCompat="@drawable/ic_devices"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/device_binary_name"
@@ -29,8 +31,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/logo_binary"
-            android:layout_toStartOf="@+id/binary_value"
+            android:layout_toEndOf="@id/device_binary_logo"
+            android:layout_toStartOf="@+id/device_binary_value"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 
@@ -43,7 +45,7 @@
             android:textSize="12sp" />
 
         <Switch
-            android:id="@+id/binary_value"
+            android:id="@+id/device_binary_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
