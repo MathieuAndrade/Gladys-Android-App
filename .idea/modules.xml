@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\sylvain.roux\doc_perso\Gladys-Android-App\Gladys.iml" filepath="C:\Users\sylvain.roux\doc_perso\Gladys-Android-App\Gladys.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Gladys-Android-App.iml" filepath="$PROJECT_DIR$/Gladys-Android-App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gladys.iml" filepath="$PROJECT_DIR$/Gladys.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\sylvain.roux\doc_perso\Gladys-Android-App\app\app.iml" filepath="C:\Users\sylvain.roux\doc_perso\Gladys-Android-App\app\app.iml" />
     </modules>
   </component>
 </project>
