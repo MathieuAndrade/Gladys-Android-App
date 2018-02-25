@@ -9,14 +9,21 @@
         android:visible="false"
         android:orderInCategory="100"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/location_button"
+        android:icon="@drawable/ic_location"
+        android:title="@string/location_button"
+        android:visible="false"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="101"
-        android:icon="@drawable/ic_gladys_maj"
-        app:showAsAction="ifRoom"
-        android:title="@string/action_settings" /> <!-- todo update settings icon to a better one-->
-    <!-- ifRoom is used to specify that this menu is shown a icon only if there are space for it. If not, it will be shown as text on a 3 dots icon menu -->
+        android:id="@+id/report_button"
+        android:icon="@drawable/ic_report"
+        android:title="@string/report_button"
+        android:visible="false"
+        android:orderInCategory="90"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/miActionProgress"

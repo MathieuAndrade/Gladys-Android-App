@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -46,7 +47,8 @@ public class TimelineFragment extends Fragment {
     String code, pref_user, pref_house;
     Boolean connection;
     RecyclerView recycler_view;
-    TextView no_data;
+    TextView no_data_timeline;
+    ImageView no_data_timeline_ic;
     EventAdapter adapter;
     MenuItem get_data_progress;
     SaveData save_data;
@@ -81,7 +83,18 @@ public class TimelineFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
-        no_data = view.findViewById(R.id.no_data);
+        no_data_timeline = view.findViewById(R.id.no_data_timeline);
+        no_data_timeline_ic = view.findViewById(R.id.no_data_timeline_ic);
+
+        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.setVisibility(View.VISIBLE);
+        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
 
         return view;
     }
@@ -201,7 +214,8 @@ public class TimelineFragment extends Fragment {
 
         if (count > 0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_timeline.setVisibility(View.INVISIBLE);
+            no_data_timeline_ic.setVisibility(View.INVISIBLE);
 
             List<Event> data = Event.listAll(Event.class);
             adapter = new EventAdapter(data);
@@ -210,8 +224,8 @@ public class TimelineFragment extends Fragment {
             getAllEvents();
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_timeline.setVisibility(View.VISIBLE);
+            no_data_timeline_ic.setVisibility(View.VISIBLE);
             getAllEvents();
         }
     }
@@ -222,7 +236,8 @@ public class TimelineFragment extends Fragment {
 
         if (count > 0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_timeline.setVisibility(View.INVISIBLE);
+            no_data_timeline_ic.setVisibility(View.INVISIBLE);
 
             List<Event> data = Event.listAll(Event.class);
             adapter = new EventAdapter(data);
@@ -230,8 +245,8 @@ public class TimelineFragment extends Fragment {
             recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_timeline.setVisibility(View.VISIBLE);
+            no_data_timeline_ic.setVisibility(View.VISIBLE);
         }
     }
 

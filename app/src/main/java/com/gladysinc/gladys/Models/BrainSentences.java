@@ -12,14 +12,16 @@ public class BrainSentences {
     private String text;
     private String label;
     private String status;
+    private String service;
 
     public BrainSentences(){}
 
-    public BrainSentences(Long sentences_id, String text, String label, String status){
+    public BrainSentences(Long sentences_id, String text, String label, String status, String service){
         this.sentences_id = sentences_id;
         this.text = text;
         this.label = label;
         this.status = status;
+        this.service = service;
     }
 
     public Long getSentences_id() {
@@ -52,6 +54,14 @@ public class BrainSentences {
 
     public void setStatue(String statue) {
         this.status = statue;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 }
 

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -53,6 +54,9 @@ public class BrainFragment extends Fragment {
         setHasOptionsMenu(true);
         SugarContext.init(getContext());
 
+        FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.setVisibility(View.INVISIBLE);
+
         FloatingActionButton fab = getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
@@ -70,7 +74,7 @@ public class BrainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_brain, container, false);
 
@@ -201,7 +205,8 @@ public class BrainFragment extends Fragment {
                     BrainSentences brainSentences = new BrainSentences(brainSentencesList.get(i).getSentences_id()
                             , brainSentencesList.get(i).getText()
                             , brainSentencesList.get(i).getLabel()
-                            , brainSentencesList.get(i).getStatue());
+                            , brainSentencesList.get(i).getStatue()
+                            , brainSentencesList.get(i).getService());
                     SugarRecord.save(brainSentences);
                     if (isCancelled()) break;
                     }

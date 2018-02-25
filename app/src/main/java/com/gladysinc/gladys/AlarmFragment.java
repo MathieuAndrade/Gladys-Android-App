@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -67,7 +68,8 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     String time, date;
     EditText cron_name, cron_rule;
     String cron_rule_name, rule;
-    TextView no_data;
+    TextView no_data_alarm;
+    ImageView no_data_alarm_ic;
     AlarmAdapter adapter;
     MenuItem get_data_progress;
     SaveData save_data;
@@ -102,7 +104,18 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
-        no_data = view.findViewById(R.id.no_data);
+        no_data_alarm = view.findViewById(R.id.no_data_alarm);
+        no_data_alarm_ic = view.findViewById(R.id.no_data_alarm_ic);
+
+        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.setVisibility(View.VISIBLE);
+        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
 
         return view;
     }
@@ -622,7 +635,8 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         if(count>0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_alarm.setVisibility(View.INVISIBLE);
+            no_data_alarm_ic.setVisibility(View.INVISIBLE);
 
             List<Alarm> data = SugarRecord.listAll(Alarm.class);
             adapter = new AlarmAdapter(data, this);
@@ -631,8 +645,9 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             getAllAlarms();
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_alarm.setVisibility(View.VISIBLE);
+            no_data_alarm_ic.setVisibility(View.VISIBLE);
+            //no_data.setText(R.string.no_data);
             getAllAlarms();
         }
     }
@@ -643,7 +658,8 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         if(count>0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_alarm.setVisibility(View.INVISIBLE);
+            no_data_alarm_ic.setVisibility(View.INVISIBLE);
 
             List<Alarm> data = SugarRecord.listAll(Alarm.class);
             adapter = new AlarmAdapter(data, this);
@@ -651,8 +667,8 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
             recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_alarm.setVisibility(View.VISIBLE);
+            no_data_alarm_ic.setVisibility(View.VISIBLE);
         }
     }
 

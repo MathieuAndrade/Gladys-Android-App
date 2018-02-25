@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gladysinc.gladys.Adapters.RoomAdapter;
@@ -47,7 +48,8 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
     String url, pref_token;
     Boolean connection;
     RecyclerView recycler_view;
-    TextView no_data;
+    TextView no_data_room;
+    ImageView no_data_room_ic;
     RoomAdapter adapter;
     MenuItem get_data_progress;
     SaveData save_data;
@@ -83,7 +85,18 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
-        no_data = view.findViewById(R.id.no_data);
+        no_data_room = view.findViewById(R.id.no_data_room);
+        no_data_room_ic = view.findViewById(R.id.no_data_room_ic);
+
+        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.setVisibility(View.VISIBLE);
+        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
 
         return view;
     }
@@ -140,7 +153,8 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
 
         if(count>0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_room.setVisibility(View.INVISIBLE);
+            no_data_room_ic.setVisibility(View.INVISIBLE);
 
             List<DevicetypeByRoom> data = SugarRecord.listAll(DevicetypeByRoom.class);
             adapter = new RoomAdapter(data, this);
@@ -149,8 +163,8 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
             getAllRooms();
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_room.setVisibility(View.VISIBLE);
+            no_data_room_ic.setVisibility(View.VISIBLE);
             getAllRooms();
         }
     }
@@ -161,7 +175,8 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
 
         if(count>0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_room.setVisibility(View.INVISIBLE);
+            no_data_room_ic.setVisibility(View.INVISIBLE);
 
             List<DevicetypeByRoom> data = SugarRecord.listAll(DevicetypeByRoom.class);
             adapter = new RoomAdapter(data, this);
@@ -169,8 +184,8 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
             recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_room.setVisibility(View.VISIBLE);
+            no_data_room_ic.setVisibility(View.VISIBLE);
         }
     }
 

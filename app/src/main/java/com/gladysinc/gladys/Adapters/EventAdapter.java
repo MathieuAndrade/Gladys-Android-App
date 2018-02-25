@@ -74,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;
             case "gladys-updated":
-                holder.event_logo.setImageResource(R.drawable.ic_gladys_maj);
+                holder.event_logo.setImageResource(R.drawable.ic_gladys_update);
                 holder.event_title.setTextColor(context.getResources().getColor(R.color.colorAccent));
                 holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event2, R.color.colorPrimary));
                 break;

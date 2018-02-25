@@ -57,10 +57,14 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @PATCH("/sentence/{id}")
-    Call<Void> setLabel(@Path("id") Long sentence_id, @Field("label") String label, @Query("token") String token);
+    Call<BrainSentences> setLabel(@Path("id") Long sentence_id, @Field("label") String label, @Query("token") String token);
 
     @FormUrlEncoded
     @PATCH("/sentence/{id}")
     Call<Void> setStatus(@Path("id") Long sentence_id, @Field("status") String status, @Query("token") String token);
+
+    @FormUrlEncoded
+    @POST("/location")
+    Call<Void> createLocation(@Field("latitude") Float latitude, @Field("longitude") Float longitude, @Field("token") String token);
 
 }

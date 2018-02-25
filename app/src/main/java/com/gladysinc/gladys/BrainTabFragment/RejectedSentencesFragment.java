@@ -3,6 +3,7 @@ package com.gladysinc.gladys.BrainTabFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -45,7 +48,8 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
     String url, pref_token;
     Boolean connection;
     RecyclerView recycler_view;
-    TextView no_data;
+    TextView no_data_rejected;
+    ImageView no_data_rejected_ic;
     BrainSentencesAdapter adapter;
     Integer index_label;
 
@@ -70,7 +74,17 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
-        no_data = view.findViewById(R.id.no_data);
+        no_data_rejected = view.findViewById(R.id.no_data_rejected);
+        no_data_rejected_ic = view.findViewById(R.id.no_data_rejected_ic);
+
+        final FloatingActionButton fab_scroll_up_rejected = view.findViewById(R.id.fab_scroll_up_rejected);
+        fab_scroll_up_rejected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up_rejected.animate().translationY(fab_scroll_up_rejected.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
 
         onCreateAdapterView();
 
@@ -83,15 +97,16 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
 
         if (brainSentencesList.size() > 0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_rejected.setVisibility(View.INVISIBLE);
+            no_data_rejected_ic.setVisibility(View.INVISIBLE);
 
             adapter = new BrainSentencesAdapter(brainSentencesList, this);
             AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
             recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_rejected.setVisibility(View.VISIBLE);
+            no_data_rejected_ic.setVisibility(View.VISIBLE);
         }
     }
 
@@ -147,7 +162,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
                         brainSentences.setStatue("approved");
                         SugarRecord.save(brainSentences);
-                        adapter.notifyDataSetChanged();
+                        onCreateAdapterView();
                     }else {
                         if (getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -198,19 +213,20 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
 
             RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-            Call<Void> call = service.setLabel(id, label, pref_token);
-            call.enqueue(new Callback<Void>() {
+            Call<BrainSentences> call = service.setLabel(id, label, pref_token);
+            call.enqueue(new Callback<BrainSentences>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
+                public void onResponse(Call<BrainSentences> call, Response<BrainSentences> response) {
                     if (response.code() == 200){
                         if (getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         }
 
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
-                        brainSentences.setLabel(label);
+                        brainSentences.setLabel(response.body().getLabel());
+                        brainSentences.setService(response.body().getService());
                         SugarRecord.save(brainSentences);
-                        adapter.notifyDataSetChanged();
+                        onCreateAdapterView();
                     }else {
                         if (getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -219,7 +235,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                public void onFailure(Call<BrainSentences> call, Throwable t) {
                     if (getActivity() != null){
                         Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }

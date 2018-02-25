@@ -2,11 +2,14 @@ package com.gladysinc.gladys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.gladysinc.gladys.Adapters.DeviceRoomAdapter;
 import com.gladysinc.gladys.Models.Devicetype;
@@ -51,8 +54,19 @@ public class DeviceActivity extends AppCompatActivity implements AdapterCallback
 
         recycler_view = findViewById(R.id.device_rv);
         recycler_view.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
+
+        final FloatingActionButton fab_scroll_up = findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.setVisibility(View.VISIBLE);
+        fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
     }
 
     public void adapterView(List<Devicetype> data){

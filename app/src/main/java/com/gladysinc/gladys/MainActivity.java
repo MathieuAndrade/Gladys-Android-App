@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
 import com.gladysinc.gladys.Settings.settingsActivity;
@@ -23,7 +26,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView user;
-    private MenuItem button;
+    private MenuItem add_button, maps_report_button, maps_location_button;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,52 +45,104 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
 
         if (id == R.id.dashboard) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new DashboardFragment()).commit();
             setToolbarTitle(R.string.dashboard);
 
-            button.setVisible(false);
+            params.setScrollFlags(0);
+
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
 
         } else if (id == R.id.rooms) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new RoomsFragment()).commit();
             setToolbarTitle(R.string.rooms);
 
-            button.setVisible(false);
+            params.setScrollFlags(0);
+
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
 
         } else if (id == R.id.timeline) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new TimelineFragment()).commit();
             setToolbarTitle(R.string.timeline);
 
+            params.setScrollFlags(0);
+
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
+
         } else if (id == R.id.alarm) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new AlarmFragment()).commit();
             setToolbarTitle(R.string.alarm);
+
+            params.setScrollFlags(0);
+
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
 
         } else if (id == R.id.brain) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new BrainFragment()).commit();
             setToolbarTitle(R.string.brain);
 
-            button.setVisible(false);
+            params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
 
         }  /*else if (id == R.id.Tchat) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new TchatFragment()).commit();
             setToolbarTitle(R.string.tchat);
 
-            button.setVisible(false);
+            params.setScrollFlags(0);
 
-        }*/ else if (id == R.id.infos) {
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
+
+        }*/ else if (id == R.id.maps) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.layout, new MapsFragment()).commit();
+            setToolbarTitle(R.string.maps);
+
+            params.setScrollFlags(0);
+
+            add_button.setVisible(false);
+
+        } else if (id == R.id.about) {
 
             getSupportFragmentManager().beginTransaction().replace(R.id.layout, new InfosFragment()).commit();
-            setToolbarTitle(R.string.info);
+            setToolbarTitle(R.string.about);
 
-            button.setVisible(false);
+            params.setScrollFlags(0);
+
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
+
+        } else if (id == R.id.settings) {
+
+            Intent intent = new Intent(getApplicationContext(), settingsActivity.class);
+            startActivity(intent);
+
+            params.setScrollFlags(0);
+
+            add_button.setVisible(false);
+            maps_location_button.setVisible(false);
+            maps_report_button.setVisible(false);
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -95,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void initialdeclarations(){
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -109,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View header = navigationView.getHeaderView(0);
 
         user = header.findViewById(R.id.user);
+
+        FloatingActionButton fab_scroll_up = findViewById(R.id.fab_scroll_up);
+        fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
     }
 
     public void setToolbarTitle(int title) {
@@ -119,21 +178,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        button = menu.findItem(R.id.add_button);
+        add_button = menu.findItem(R.id.add_button);
+        maps_report_button = menu.findItem(R.id.report_button);
+        maps_location_button = menu.findItem(R.id.location_button);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), settingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -156,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String pref_user_first_name = preferences.getString("first_name", "");
 
         String userName = "" + pref_user_first_name + " " + pref_user_namz;
-
 
         if(!Objects.equals(pref_user_namz, "") & !Objects.equals(pref_user_first_name, "")){
             user.setText(userName);

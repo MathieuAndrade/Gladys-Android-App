@@ -41,10 +41,12 @@ public class BrainSentencesAdapter extends RecyclerView.Adapter<BrainSentencesAd
         String label = context.getString(R.string.label) + " " + results.get(position).getLabel();
         final String callback_status = results.get(position).getStatue();
         String status = context.getString(R.string.statue) + " " + results.get(position).getStatue();
+        String service = context.getString(R.string.service) + " " + results.get(position).getService();
 
         holder.text.setText(results.get(position).getText());
         holder.label.setText(label);
         holder.status.setText(status);
+        holder.service.setText(service);
 
         holder.more_button.setOnClickListener(null);
         holder.more_button.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,7 @@ public class BrainSentencesAdapter extends RecyclerView.Adapter<BrainSentencesAd
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView text, status, label;
+        private TextView text, status, label, service;
         private ImageButton more_button;
         ViewHolder(View view){
             super(view);
@@ -70,6 +72,7 @@ public class BrainSentencesAdapter extends RecyclerView.Adapter<BrainSentencesAd
             text = view.findViewById(R.id.sentence_text);
             status = view.findViewById(R.id.sentence_status);
             label = view.findViewById(R.id.sentence_label);
+            service = view.findViewById(R.id.sentence_service);
             more_button = view.findViewById(R.id.more_button);
 
         }

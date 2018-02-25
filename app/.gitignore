@@ -1,1 +1,4 @@
 /build
+/release
+app-release.apk
+MyKeyStore.jks

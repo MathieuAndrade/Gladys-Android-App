@@ -3,6 +3,7 @@ package com.gladysinc.gladys.BrainTabFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -45,7 +48,8 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
     String url, pref_token;
     Boolean connection;
     RecyclerView recycler_view;
-    TextView no_data;
+    TextView no_data_pending;
+    ImageView no_data_pending_ic;
     BrainSentencesAdapter adapter;
     Integer index_label;
 
@@ -70,7 +74,17 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
-        no_data = view.findViewById(R.id.no_data);
+        no_data_pending = view.findViewById(R.id.no_data_pending);
+        no_data_pending_ic = view.findViewById(R.id.no_data_pending_ic);
+
+        final FloatingActionButton fab_scroll_up_pending = view.findViewById(R.id.fab_scroll_up_pending);
+        fab_scroll_up_pending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recycler_view.smoothScrollToPosition(0);
+                fab_scroll_up_pending.animate().translationY(fab_scroll_up_pending.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
+            }
+        });
 
         onCreateAdapterView();
 
@@ -83,15 +97,16 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
 
         if (brainSentencesList.size() > 0) {
             recycler_view.setVisibility(View.VISIBLE);
-            no_data.setVisibility(View.INVISIBLE);
+            no_data_pending.setVisibility(View.INVISIBLE);
+            no_data_pending_ic.setVisibility(View.INVISIBLE);
 
             adapter = new BrainSentencesAdapter(brainSentencesList, this);
             AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
             recycler_view.setAdapter(new SlideInLeftAnimationAdapter(alphaAdapter));
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
-            no_data.setVisibility(View.VISIBLE);
-            no_data.setText(R.string.no_data);
+            no_data_pending.setVisibility(View.VISIBLE);
+            no_data_pending_ic.setVisibility(View.VISIBLE);
         }
     }
 
@@ -149,7 +164,7 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
                         brainSentences.setStatue(status);
                         SugarRecord.save(brainSentences);
-                        adapter.notifyDataSetChanged();
+                        onCreateAdapterView();
                     }else {
                         if(getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -200,19 +215,20 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
 
             RetrofitAPI service = retrofit.create(RetrofitAPI.class);
 
-            Call<Void> call = service.setLabel(id, label, pref_token);
-            call.enqueue(new Callback<Void>() {
+            Call<BrainSentences> call = service.setLabel(id, label, pref_token);
+            call.enqueue(new Callback<BrainSentences>() {
                 @Override
-                public void onResponse(Call<Void> all, Response<Void> response) {
+                public void onResponse(Call<BrainSentences> all, Response<BrainSentences> response) {
                     if (response.code() == 200){
                         if(getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         }
 
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
-                        brainSentences.setLabel(label);
+                        brainSentences.setLabel(response.body().getLabel());
+                        brainSentences.setService(response.body().getService());
                         SugarRecord.save(brainSentences);
-                        adapter.notifyDataSetChanged();
+                        onCreateAdapterView();
                     }else {
                         if(getActivity() != null){
                             Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
@@ -221,7 +237,7 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
                 }
 
                 @Override
-                public void onFailure(Call<Void> all, Throwable t) {
+                public void onFailure(Call<BrainSentences> all, Throwable t) {
                     if(getActivity() != null){
                         Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }

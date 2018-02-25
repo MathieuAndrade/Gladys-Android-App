@@ -26,6 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@color/white"/>
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_scroll_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/light_gray"
+        app:elevation="3dp"
+        app:fabSize="mini"
+        app:layout_behavior="com.gladysinc.gladys.Utils.ScrollFab"
+        app:rippleColor="@color/common_google_signin_btn_text_light_default"
+        app:srcCompat="@drawable/ic_arrow_top" />
 
 </android.support.design.widget.CoordinatorLayout>

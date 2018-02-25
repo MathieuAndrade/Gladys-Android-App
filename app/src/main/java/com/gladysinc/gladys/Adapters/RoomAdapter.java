@@ -24,7 +24,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public RoomAdapter(List<DevicetypeByRoom> roomList, AdapterCallback.AdapterCallbackRoom callbackRoom) {
         this.results = roomList;
         this.callback_room = callbackRoom;
-        }
+    }
 
     @Override
     public RoomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,6 +42,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         holder.room_name.setText(results.get(position).getRoomName());
         holder.room_house.setText(house);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback_room.onClickCallbackRoom(id, roomName);
+            }
+        });
 
         holder.device_butoon.setOnClickListener(new View.OnClickListener() {
             @Override

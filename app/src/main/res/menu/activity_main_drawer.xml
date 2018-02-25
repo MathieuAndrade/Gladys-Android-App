@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/dashboard"
             android:checked="true"
@@ -24,9 +26,22 @@
             android:icon="@drawable/ic_brain"
             android:title="@string/brain" />
         <item
-            android:id="@+id/infos"
+            android:id="@+id/maps"
+            android:icon="@drawable/ic_location_zone_blue"
+            android:title="@string/maps" />
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/about"
             android:icon="@drawable/ic_info"
-            android:title="@string/info" />
+            android:title="@string/about" />
     </group>
 
 </menu>
