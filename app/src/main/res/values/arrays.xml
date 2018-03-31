@@ -85,7 +85,6 @@
     <string-array name="open_source_licence">
         <item>Gson</item>
         <item>Material dialogs</item>
-        <item>Material Intro Screen</item>
         <item>OkHttp</item>
         <item>Recycler View animators</item>
         <item>Retrofit</item>

@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -24,16 +25,4 @@
         <item name="android:padding">@dimen/padding_large</item>
     </style>
 
-    <style name="Material.EditTextTheme.Light" parent="AppTheme">
-        <item name="colorControlNormal">@color/colorTextHint</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="android:textColorHint">@color/colorTextHint</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="Material.EditTextTheme.Dark" parent="AppTheme">
-        <item name="colorControlNormal">@color/colorPrimaryDark</item>
-        <item name="colorControlActivated">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
 </resources>

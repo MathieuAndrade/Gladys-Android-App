@@ -6,7 +6,6 @@
     <string name="gladysproject">https://gladysproject.com/fr/</string>
     <string name="gson">https://github.com/google/gson</string>
     <string name="material_dialogs">https://github.com/afollestad/material-dialogs</string>
-    <string name="material_intro_screen">https://github.com/TangoAgency/material-intro-screen.git</string>
     <string name="okhttp">https://github.com/square/okhttp</string>
     <string name="recycleview_animator">https://github.com/wasabeef/recyclerview-animators</string>
     <string name="retrofit">https://github.com/square/retrofit</string>

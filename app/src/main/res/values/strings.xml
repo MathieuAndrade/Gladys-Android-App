@@ -1,5 +1,6 @@
 <resources>
     <string name="about">A propos</string>
+    <string name="about_text">Cette application fonctionne avec le programme domotique open source GladysProject.</string>
     <string name="action_settings">Paramètres</string>
     <string name="add_button">add_button</string>
     <string name="alarm">Alarmes</string>
@@ -7,25 +8,18 @@
     <string name="alarm_removed">Alarme supprimée !</string>
     <string name="all_fields">Veuillez renseigner tous les champs</string>
     <string name="all_sentences">Toutes les phrases</string>
-    <string name="and_more">Et bien plus encore</string>
-    <string name="app_description">Cette application fonctionne avec le programme domotique open source GladysProject. GladysProject est un programme open-source pour Raspberry Pi. Ce programme se connecte à vos périphériques et à votre agenda pour mieux vous aider au quotidien.</string>
     <string name="app_info">Informations sur l\'application</string>
     <string name="app_name">Gladys</string>
     <string name="approve_button">Approuver</string>
     <string name="approuved_sentences">Phrases Aprouvées</string>
-    <string name="are_you">Êtes-vous</string>
     <string name="brain">Brain</string>
     <string name="category">Catégorie :</string>
     <string name="command_send">Commande envoyée !</string>
     <string name="connection">Connexion</string>
-    <string name="create_token">Comment créer un token</string>
-    <string name="create_token_guide">Pour créer un token il vous suffit de vous connecter sur l’interface de Gladys avec votre compte puis d’aller dans les paramètres et enfin dans l’onglet sécurité. Donner un nom à votre token et cliquez sur nouveau.</string>
     <string name="cron">Règle cron</string>
     <string name="cron_example">Exemple: 0 0 * * * *</string>
     <string name="dashboard">Dashboard</string>
-    <string name="dashboard_description">Contrôlez tous vos devices à tout moment et depuis n\'importe où.</string>
     <string name="date">Date</string>
-    <string name="description_config_local">Entrez l’adresse IP locale de Gladys avec son port (8080 par défaut) et le token d’authentification de votre compte. L’HTTPS n’est pas géré en local. Ces paramètres pourront être modifiés plus tard.</string>
     <string name="display">Afficher</string>
     <string name="dns_adress">DNS / IP Publique</string>
     <string name="dns_adress_example">Exemple: monadresse.ddns.net</string>
@@ -34,8 +28,6 @@
     <string name="enter_message">Entrer un message</string>
     <string name="event_created">Evènement créé !</string>
     <string name="first_name">Prénom</string>
-    <string name="app_functionalities_description">Envoyez votre position GPS à tout moment pour déclencher des scenarios. Gérez vos alarmes, vos phrases et déclenchez des évènements en quelques clics.</string>
-    <string name="help_create_token">Besoin d\'aide pour créer un token ?</string>
     <string name="home_assistant">Your home assistant</string>
     <string name="house">Maison :</string>
     <string name="house_id">ID Logement</string>
@@ -45,10 +37,6 @@
     <string name="info">Infos</string>
     <string name="ip_adress">Adresse IP locale</string>
     <string name="ip_adresse_example">Exemple: 192.168.1.12</string>
-    <string name="it_is_not_you">Ce n\'est pas vous ?</string>
-    <string name="it_is_not_you_message">Assurez-vous d’avoir utilisé un token lié à votre compte afin que Gladys puisse vous identifier.</string>
-    <string name="is_me">Oui c\'est moi</string>
-    <string name="is_not_me">Non ce n\'est pas moi</string>
     <string name="label">Label :</string>
     <string name="last_value">Dernière valeur :</string>
     <string name="loading">Chargement</string>
@@ -59,13 +47,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="negative_button">Annuler</string>
     <string name="new_object">Nouveau</string>
-    <string name="no">Non</string>
-    <string name="no_alarms">Vous n\'avez aucune alarme</string>
     <string name="no_devices">Vous n\'avez aucun device</string>
-    <string name="no_events">Vous n\'avez aucun évènement</string>
     <string name="no_rooms">Vous n\'avez aucune pièce</string>
+    <string name="no_events">Vous n\'avez aucun évènement</string>
     <string name="no_sentences">Vous n\'avez aucune phrase</string>
-    <string name="no_wifi_message">Vous n’êtes pas connecté en Wifi, souhaitez-vous configurer les paramètres de connexion en itinérance ?</string>
+    <string name="no_alarms">Vous n\'avez aucune alarme</string>
     <string name="open_source_license">Licenses open source</string>
     <string name="port">Port</string>
     <string name="port_example">Exemple: 8080</string>
@@ -103,6 +89,5 @@
     <string name="value">Valeur :</string>
     <string name="version">Version :</string>
     <string name="waiting_sentences">Phrases en attentes</string>
-    <string name="yes">Oui</string>
-    <string name="you_are_ready">Vous êtes prêt !</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

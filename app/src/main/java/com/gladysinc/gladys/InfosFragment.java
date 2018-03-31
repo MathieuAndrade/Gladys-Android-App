@@ -66,24 +66,21 @@ public class InfosFragment extends Fragment {
                                         url =  getActivity().getString(R.string.material_dialogs);
                                         break;
                                     case 2:
-                                        url =  getActivity().getString(R.string.material_intro_screen);
-                                        break;
-                                    case 3:
                                         url =  getActivity().getString(R.string.okhttp);
                                         break;
-                                    case 4:
+                                    case 3:
                                         url =  getActivity().getString(R.string.recycleview_animator);
                                         break;
-                                    case 5:
+                                    case 4:
                                         url =  getActivity().getString(R.string.retrofit);
                                         break;
-                                    case 6:
+                                    case 5:
                                         url =  getActivity().getString(R.string.sectioned_recycler_view_adapter);
                                         break;
-                                    case 7:
+                                    case 6:
                                         url =  getActivity().getString(R.string.sugarorm);
                                         break;
-                                    case 8:
+                                    case 7:
                                         url =  getActivity().getString(R.string.vipulasri);
                                         break;
                                 }

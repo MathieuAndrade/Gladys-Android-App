@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error">Une erreur est survenu</string>
+    <string name="error">Une erreur est survenu code : </string>
     <string name="error_code">Code d\'erreur et signification</string>
-    <string name="error_code_0">Aucune connexion disponible</string>
-    <string name="error_code_1">Information locales invalide (Adresse IP, Port ou Token)</string>
-    <string name="error_code_2">Option Nat désactivée</string>
-    <string name="error_code_3">Information Nat non valide (Dns, Port ou Token)</string>
-    <string name="error_code_4">Erreur de lecture des données</string>
-    <string name="error_code_5">Erreur de synchronisation</string>
-    <string name="error_code_6">Remplissez les champs et tester la connexion</string>
+    <string name="error_code_0">Code 0 : Aucune connexion disponible</string>
+    <string name="error_code_1">Code 1 : Information local non valide (IP, Port ou Token)</string>
+    <string name="error_code_2">Code 2 : Option Wan désactivée</string>
+    <string name="error_code_3">Code 3 : Information Wan non valide (Dns ou Token)</string>
+    <string name="error_code_4">Code 4 : Information Wan non valide (Port)</string>
+    <string name="error_code_5">Code 5 : Erreur de lecture des données</string>
+    <string name="error_code_6">Code 6 : Erreur de synchronisation</string>
 </resources>

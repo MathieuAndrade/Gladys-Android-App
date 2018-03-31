@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.gladysinc.gladys.InfosFragment">
 
+
     <ImageView
         android:id="@+id/Logo"
         android:layout_width="100dp"
@@ -94,5 +95,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_info"
         app:layout_constraintVertical_bias="0.0" />
-
 </android.support.constraint.ConstraintLayout>
