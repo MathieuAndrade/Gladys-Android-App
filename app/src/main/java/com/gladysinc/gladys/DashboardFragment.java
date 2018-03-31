@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +26,7 @@ import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 import com.orm.SugarContext;
 import com.orm.SugarRecord;
 
@@ -171,7 +171,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
 
         }else {
@@ -210,7 +210,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                     }
                 }
 
@@ -221,7 +221,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
                 if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                     }
                 }
                 get_data_progress.setVisible(false);
@@ -259,11 +259,11 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 public void onResponse(Call<Void> call,Response<Void> response) {
                     if(response.code() == 200){
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.command_send));
                     }
                     }else{
                         if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                         }
                     }
                 }
@@ -271,7 +271,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 public void onFailure(Call<Void> call,Throwable t) {
                     if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                         }
                     }
                 }
@@ -310,6 +310,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         SaveData(DashboardFragment context){
             dashboard_fragment_weak_reference = new WeakReference<>(context);
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -365,7 +366,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             } catch (Exception e){
                 if(dashboard_fragment_weak_reference.get().getActivity() != null){
-                    Snackbar.make(dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), dashboard_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
                 result = false;
             }
@@ -376,18 +377,17 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         @Override
         protected void onPostExecute(Boolean result) {
 
-            DashboardFragment dashboardFragment = dashboard_fragment_weak_reference.get();
-            if (dashboardFragment == null) return;
+            if (dashboard_fragment_weak_reference.get() == null) return;
 
             if(result){
-                dashboardFragment.onRefreshAdapterView();
+                dashboard_fragment_weak_reference.get().onRefreshAdapterView();
             } else {
-                if(dashboardFragment.getActivity() != null){
-                    Snackbar.make(dashboardFragment.getActivity().findViewById(R.id.layout), dashboardFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(dashboard_fragment_weak_reference.get().getActivity() != null){
+                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), dashboard_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
             }
 
-            dashboardFragment.get_data_progress.setVisible(false);
+            dashboard_fragment_weak_reference.get().get_data_progress.setVisible(false);
         }
     }
 }

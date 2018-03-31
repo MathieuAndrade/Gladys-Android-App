@@ -3,8 +3,8 @@
     <string name="action_settings">Paramètres</string>
     <string name="add_button">add_button</string>
     <string name="alarm">Alarmes</string>
-    <string name="alarm_created">Alarme créé !</string>
-    <string name="alarm_removed">Alarme supprimée !</string>
+    <string name="alarm_created">Alarme créé</string>
+    <string name="alarm_removed">Alarme supprimée</string>
     <string name="all_fields">Veuillez renseigner tous les champs</string>
     <string name="all_sentences">Toutes les phrases</string>
     <string name="and_more">Et bien plus encore</string>
@@ -16,7 +16,7 @@
     <string name="are_you">Êtes-vous</string>
     <string name="brain">Brain</string>
     <string name="category">Catégorie :</string>
-    <string name="command_send">Commande envoyée !</string>
+    <string name="command_send">Commande envoyée</string>
     <string name="connection">Connexion</string>
     <string name="create_token">Comment créer un token</string>
     <string name="create_token_guide">Pour créer un token il vous suffit de vous connecter sur l’interface de Gladys avec votre compte puis d’aller dans les paramètres et enfin dans l’onglet sécurité. Donner un nom à votre token et cliquez sur nouveau.</string>
@@ -32,7 +32,7 @@
     <string name="dns_port_example">Exemple: 443</string>
     <string name="empty">null</string>
     <string name="enter_message">Entrer un message</string>
-    <string name="event_created">Evènement créé !</string>
+    <string name="event_created">Evènement créé</string>
     <string name="first_name">Prénom</string>
     <string name="app_functionalities_description">Envoyez votre position GPS à tout moment pour déclencher des scenarios. Gérez vos alarmes, vos phrases et déclenchez des évènements en quelques clics.</string>
     <string name="help_create_token">Besoin d\'aide pour créer un token ?</string>
@@ -67,6 +67,7 @@
     <string name="no_sentences">Vous n\'avez aucune phrase</string>
     <string name="no_wifi_message">Vous n’êtes pas connecté en Wifi, souhaitez-vous configurer les paramètres de connexion en itinérance ?</string>
     <string name="open_source_license">Licenses open source</string>
+    <string name="permission_denied">Permission refusée</string>
     <string name="port">Port</string>
     <string name="port_example">Exemple: 8080</string>
     <string name="positve_button">OK</string>
@@ -104,5 +105,5 @@
     <string name="version">Version :</string>
     <string name="waiting_sentences">Phrases en attentes</string>
     <string name="yes">Oui</string>
-    <string name="you_are_ready">Vous êtes prêt !</string>
+    <string name="you_are_ready">Vous êtes prêt</string>
 </resources>

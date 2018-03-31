@@ -3,8 +3,8 @@ package com.gladysinc.gladys.BrainTabFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
@@ -26,6 +26,7 @@ import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 import com.orm.SugarRecord;
 
 import java.util.Arrays;
@@ -65,7 +66,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_rejected_sentences, container, false);
 
@@ -156,7 +157,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.code() == 200){
                         if (getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.command_send));
                         }
 
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
@@ -165,7 +166,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                         onCreateAdapterView();
                     }else {
                         if (getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                         }
                     }
                 }
@@ -173,7 +174,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     if (getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                     }
                 }
             });
@@ -219,7 +220,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                 public void onResponse(Call<BrainSentences> call, Response<BrainSentences> response) {
                     if (response.code() == 200){
                         if (getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.command_send));
                         }
 
                         BrainSentences brainSentences = (SugarRecord.find(BrainSentences.class, "sentencesid = ?", id.toString())).get(0);
@@ -229,7 +230,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                         onCreateAdapterView();
                     }else {
                         if (getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                         }
                     }
                 }
@@ -237,7 +238,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
                 @Override
                 public void onFailure(Call<BrainSentences> call, Throwable t) {
                     if (getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                     }
                 }
             });
@@ -255,7 +256,7 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
 
         }else {

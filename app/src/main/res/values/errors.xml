@@ -9,4 +9,5 @@
     <string name="error_code_4">Erreur de lecture des données</string>
     <string name="error_code_5">Erreur de synchronisation</string>
     <string name="error_code_6">Remplissez les champs et tester la connexion</string>
+    <string name="error_code_7">Erreur : Vérifiez votre connexion</string>
 </resources>

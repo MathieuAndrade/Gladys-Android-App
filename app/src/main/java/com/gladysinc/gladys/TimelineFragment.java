@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +24,7 @@ import com.gladysinc.gladys.Models.Event;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -126,7 +126,7 @@ public class TimelineFragment extends Fragment {
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                     }
                 }
             }
@@ -134,7 +134,7 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 if(getActivity() != null){
-                    Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                 }
                 get_data_progress.setVisible(false);
             }
@@ -189,11 +189,11 @@ public class TimelineFragment extends Fragment {
                     if(response.code() == 201){
                         getAllEvents();
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.event_created), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.event_created));
                         }
                     }else{
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                         }
                     }
                 }
@@ -201,7 +201,7 @@ public class TimelineFragment extends Fragment {
                 @Override
                 public void onFailure(Call<Event> call, Throwable t) {
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                     }
                 }
             });
@@ -289,7 +289,7 @@ public class TimelineFragment extends Fragment {
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
 
         }else {
@@ -395,7 +395,7 @@ public class TimelineFragment extends Fragment {
 
             } catch (Exception e){
                 if(timeline_fragment_weak_reference.get().getActivity() != null){
-                    Snackbar.make(timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    SnackbarUtils.simpleSnackBar(timeline_fragment_weak_reference.get().getActivity(), timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), timeline_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
             }
                 result = false;
             }
@@ -406,18 +406,17 @@ public class TimelineFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
 
-            TimelineFragment timelineFragment = timeline_fragment_weak_reference.get();
-            if (timelineFragment == null) return;
+            if (timeline_fragment_weak_reference.get() == null) return;
 
             if(result){
-                timelineFragment.onRefreshAdapterView();
+                timeline_fragment_weak_reference.get().onRefreshAdapterView();
             } else {
-                if(timelineFragment.getActivity() != null){
-                    Snackbar.make(timelineFragment.getActivity().findViewById(R.id.layout), timelineFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(timeline_fragment_weak_reference.get().getActivity() != null){
+                    SnackbarUtils.simpleSnackBar(timeline_fragment_weak_reference.get().getActivity(), timeline_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), timeline_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
             }
 
-            timelineFragment.get_data_progress.setVisible(false);
+            timeline_fragment_weak_reference.get().get_data_progress.setVisible(false);
         }
     }
 }

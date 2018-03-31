@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -23,6 +22,7 @@ import com.gladysinc.gladys.Models.BrainSentences;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 import com.orm.SugarContext;
 import com.orm.SugarRecord;
 
@@ -125,7 +125,7 @@ public class BrainFragment extends Fragment {
                 } else {
                     get_data_progress.setVisible(false);
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                     }
                 }
             }
@@ -134,7 +134,7 @@ public class BrainFragment extends Fragment {
             public void onFailure(Call<List<BrainSentences>> call, Throwable t) {
                 if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                     }
                 }
                 get_data_progress.setVisible(false);
@@ -163,7 +163,7 @@ public class BrainFragment extends Fragment {
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
         }else {
 
@@ -215,7 +215,7 @@ public class BrainFragment extends Fragment {
 
             } catch (Exception e){
                 if(brain_fragment_weak_reference.get().getActivity() != null){
-                    Snackbar.make(brain_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    SnackbarUtils.simpleSnackBar(brain_fragment_weak_reference.get().getActivity(), brain_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), brain_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
                 result = false;
             }
@@ -226,16 +226,15 @@ public class BrainFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
 
-            BrainFragment brainFragment = brain_fragment_weak_reference.get();
-            if (brainFragment == null) return;
+            if (brain_fragment_weak_reference.get() == null) return;
 
             if(!result){
-                if(brainFragment.getActivity() != null){
-                    Snackbar.make(brainFragment.getActivity().findViewById(R.id.layout), brainFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(brain_fragment_weak_reference.get().getActivity() != null){
+                    SnackbarUtils.simpleSnackBar(brain_fragment_weak_reference.get().getActivity(), brain_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), brain_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
             }
-            brainFragment.get_data_progress.setVisible(false);
-            brainFragment.view_pager.getAdapter().notifyDataSetChanged();
+            brain_fragment_weak_reference.get().get_data_progress.setVisible(false);
+            brain_fragment_weak_reference.get().view_pager.getAdapter().notifyDataSetChanged();
         }
     }
 }

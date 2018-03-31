@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 import com.orm.SugarRecord;
 
 import java.lang.ref.WeakReference;
@@ -76,7 +78,7 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_rooms, container, false);
 
@@ -128,7 +130,7 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                     }
 
                 }
@@ -139,7 +141,7 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
             public void onFailure(Call<List<DevicetypeByRoom>> call, Throwable t) {
                 if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
-                        Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                     }
                 }
                 get_data_progress.setVisible(false);
@@ -213,7 +215,7 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
 
         }else {
@@ -288,7 +290,7 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
 
             } catch (Exception e){
                 if(rooms_fragment_weak_reference.get().getActivity() != null){
-                    Snackbar.make(rooms_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), R.string.error + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    SnackbarUtils.simpleSnackBar(rooms_fragment_weak_reference.get().getActivity(), rooms_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), rooms_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
 
                 result = false;
@@ -300,18 +302,17 @@ public class RoomsFragment extends Fragment implements AdapterCallback.AdapterCa
         @Override
         protected void onPostExecute(Boolean result) {
 
-            RoomsFragment roomsFragment = rooms_fragment_weak_reference.get();
-            if (roomsFragment == null) return;
+            if (rooms_fragment_weak_reference.get() == null) return;
 
             if(result){
-                roomsFragment.onRefreshAdapterView();
+                rooms_fragment_weak_reference.get().onRefreshAdapterView();
             } else {
-                if(roomsFragment.getActivity() != null){
-                    Snackbar.make(roomsFragment.getActivity().findViewById(R.id.layout), roomsFragment.getActivity().getString(R.string.error) + " " + "5", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if(rooms_fragment_weak_reference.get().getActivity() != null){
+                    SnackbarUtils.simpleSnackBar(rooms_fragment_weak_reference.get().getActivity(), rooms_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), rooms_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
                 }
             }
 
-            roomsFragment.get_data_progress.setVisible(false);
+            rooms_fragment_weak_reference.get().get_data_progress.setVisible(false);
         }
     }
 }

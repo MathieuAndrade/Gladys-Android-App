@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
+import com.gladysinc.gladys.Utils.SnackbarUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -166,11 +167,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 public void onResponse(Call<Void> call,Response<Void> response) {
                     if(response.code() == 201){
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.command_send), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.command_send));
                         }
                     }else{
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
                         }
                     }
                 }
@@ -178,7 +179,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                 public void onFailure(Call<Void> call,Throwable t) {
                     if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                         if(getActivity() != null){
-                            Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + "6", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
                         }
                     }
                 }
@@ -192,7 +193,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             enableLocation();
         } else {
-            Snackbar.make(getActivity().findViewById(R.id.layout), "Permision refusée", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.permission_denied));
         }
     }
 
@@ -207,7 +208,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
             connection = false;
             if(getActivity() != null){
-                Snackbar.make(getActivity().findViewById(R.id.layout), getActivity().getString(R.string.error) + " " + type_of_connection, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
             }
 
         }else {
