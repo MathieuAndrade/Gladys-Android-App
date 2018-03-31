@@ -5,16 +5,14 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.Objects;
 
-public class Connectivity extends AppCompatActivity{
+public class Connectivity{
 
     public static String type_of_connection;
 
     public Connectivity() {}
-
 
     private static NetworkInfo getNetworkInfo(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -22,13 +20,13 @@ public class Connectivity extends AppCompatActivity{
     }
 
 
-    private static boolean isConnected(Context context){
+    public static boolean isConnected(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected());
     }
 
 
-    private static boolean isConnectedWifi(Context context){
+    public static boolean isConnectedWifi(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
@@ -56,7 +54,7 @@ public class Connectivity extends AppCompatActivity{
         String token = prefs.getString("token", "");
 
         if(!Objects.equals(ip, "") & !Objects.equals(port, "") & !Objects.equals(token, "")){
-            type_of_connection = "http://" + ip + ":" + port  ;
+            type_of_connection = "http://" + ip + ":" + port;
         } else {
             type_of_connection = "1";}
     }

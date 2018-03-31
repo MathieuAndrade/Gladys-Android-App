@@ -63,6 +63,9 @@
             android:name=".DeviceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/Theme.Intro" />
     </application>
 
 </manifest>

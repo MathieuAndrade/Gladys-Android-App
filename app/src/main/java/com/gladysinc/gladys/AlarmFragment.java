@@ -95,7 +95,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
 
@@ -166,13 +166,13 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     public void alarmDialog(){
         final MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.title_dialog_alarm)
-                .customView(R.layout.select_alarm_view, true)
+                .customView(R.layout.dialog_select_alarm, true)
                 .show();
 
 
         Button specific_date_button = dialog.getCustomView().findViewById(R.id.specific_date_button);
         Button recurring = dialog.getCustomView().findViewById(R.id.recurring_button);
-        final Button cron = dialog.getCustomView().findViewById(R.id.cron_button);
+        Button cron = dialog.getCustomView().findViewById(R.id.cron_button);
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)  specific_date_button.getLayoutParams();
         RelativeLayout.LayoutParams params1 = (RelativeLayout.LayoutParams)  recurring.getLayoutParams();
@@ -216,7 +216,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     public void clickRecurring(){
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.recurring)
-                .customView(R.layout.recurring_alarm, false)
+                .customView(R.layout.dialog_recurring_alarm, false)
                 .positiveText(R.string.positve_button)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -275,7 +275,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     public void clickSpecificDate(){
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.specific_date)
-                .customView(R.layout.specific_date_alarm, false)
+                .customView(R.layout.dialog_specific_date_alarm, false)
                 .positiveText(R.string.positve_button)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -359,7 +359,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
     public void cronRule(){
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(R.string.cron)
-                .customView(R.layout.cron_alarm, false)
+                .customView(R.layout.dialog_cron_alarm, false)
                 .positiveText(R.string.positve_button)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -417,13 +417,13 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         if( Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
             dialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.set_time)
-                    .customView(R.layout.time_picker, false)
+                    .customView(R.layout.dialog_time_picker, false)
                     .positiveText(R.string.positve_button)
                     .show();
         }else {
             dialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.set_time)
-                    .customView(R.layout.time_picker_v21, false)
+                    .customView(R.layout.dialog_time_picker_v21, false)
                     .positiveText(R.string.positve_button)
                     .show();
         }
@@ -465,13 +465,13 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         if( Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
             dialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.set_date)
-                    .customView(R.layout.date_picker, false)
+                    .customView(R.layout.dialog_date_picker, false)
                     .positiveText(R.string.positve_button)
                     .show();
         }else {
             dialog = new MaterialDialog.Builder(getActivity())
                     .title(R.string.set_date)
-                    .customView(R.layout.date_picker_v21, false)
+                    .customView(R.layout.dialog_date_picker_v21, false)
                     .positiveText(R.string.positve_button)
                     .show();
         }
