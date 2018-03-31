@@ -4,6 +4,7 @@ import com.gladysinc.gladys.Models.Alarm;
 import com.gladysinc.gladys.Models.BrainSentences;
 import com.gladysinc.gladys.Models.DevicetypeByRoom;
 import com.gladysinc.gladys.Models.Event;
+import com.gladysinc.gladys.Models.User;
 
 import java.util.List;
 
@@ -20,12 +21,14 @@ import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
+    @GET("/user/whoami?")
+    Call<User> whoAmI(@Query("token") String token);
+
     @GET("/event?")
     Call<List<Event>> getEvents(@Query("token") String token);
 
     @GET("/event/create")
     Call<Event> createEvents(@Query("code") String event, @Query("house") String house_id, @Query("user") String user_id, @Query("token") String token);
-
 
     @GET("/devicetype/room")
     Call<List<DevicetypeByRoom>> getDevicetypeByRoom(@Query("token") String token);

@@ -204,20 +204,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String pref_user_namz = preferences.getString("name" , "");
+        String pref_user_name = preferences.getString("name" , "");
         String pref_user_first_name = preferences.getString("first_name", "");
 
-        String userName = "" + pref_user_first_name + " " + pref_user_namz;
+        String userName = "" + pref_user_first_name + " " + pref_user_name;
 
-        if(!Objects.equals(pref_user_namz, "") & !Objects.equals(pref_user_first_name, "")){
+        if(!Objects.equals(pref_user_name, "") & !Objects.equals(pref_user_first_name, "")){
             user.setText(userName);
         }
-        else if (!Objects.equals(pref_user_first_name, "") & Objects.equals(pref_user_namz, "") ){
+        else if (!Objects.equals(pref_user_first_name, "") & Objects.equals(pref_user_name, "") ){
             user.setText(pref_user_first_name);
 
         }
-        else if (!Objects.equals(pref_user_namz, "") & Objects.equals(pref_user_first_name, "")){
-            user.setText(pref_user_namz);
+        else if (!Objects.equals(pref_user_name, "") & Objects.equals(pref_user_first_name, "")){
+            user.setText(pref_user_name);
 
         }
 
