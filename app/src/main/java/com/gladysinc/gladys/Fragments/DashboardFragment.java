@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.gladysinc.gladys.Adapters.DevicetypeByRoomAdapterSectioned;
 import com.gladysinc.gladys.Models.Devicetype;
 import com.gladysinc.gladys.Models.DevicetypeByRoom;
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;

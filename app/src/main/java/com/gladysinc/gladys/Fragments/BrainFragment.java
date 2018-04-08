@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -19,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 
 import com.gladysinc.gladys.Adapters.ViewPagerAdapter;
 import com.gladysinc.gladys.Models.BrainSentences;
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;

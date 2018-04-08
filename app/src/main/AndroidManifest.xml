@@ -40,7 +40,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -59,11 +59,11 @@
             android:label="@string/settings"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".DeviceActivity"
+            android:name=".Activities.DeviceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".IntroActivity"
+            android:name=".Activities.IntroActivity"
             android:theme="@style/Theme.Intro" />
     </application>
 

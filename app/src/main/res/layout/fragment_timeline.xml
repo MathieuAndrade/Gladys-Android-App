@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.gladysinc.gladys.TimelineFragment">
+    tools:context="com.gladysinc.gladys.Fragments.TimelineFragment">
 
     <ImageView
         android:id="@+id/no_data_timeline_ic"

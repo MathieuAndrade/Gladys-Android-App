@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.Manifest;
 import android.content.SharedPreferences;
@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;

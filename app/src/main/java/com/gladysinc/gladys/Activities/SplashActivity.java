@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.gladysinc.gladys.MainActivity;
+import com.gladysinc.gladys.R;
 
 public class SplashActivity extends AppCompatActivity {
 

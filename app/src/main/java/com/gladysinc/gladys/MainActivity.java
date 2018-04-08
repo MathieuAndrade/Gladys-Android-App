@@ -19,6 +19,13 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
+import com.gladysinc.gladys.Fragments.AlarmFragment;
+import com.gladysinc.gladys.Fragments.BrainFragment;
+import com.gladysinc.gladys.Fragments.DashboardFragment;
+import com.gladysinc.gladys.Fragments.InfosFragment;
+import com.gladysinc.gladys.Fragments.MapsFragment;
+import com.gladysinc.gladys.Fragments.RoomsFragment;
+import com.gladysinc.gladys.Fragments.TimelineFragment;
 import com.gladysinc.gladys.Settings.SettingsActivity;
 
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -33,6 +33,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.gladysinc.gladys.Adapters.AlarmAdapter;
 import com.gladysinc.gladys.Models.Alarm;
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.DateTimeUtils;

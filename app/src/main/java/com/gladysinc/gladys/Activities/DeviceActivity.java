@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.animation.LinearInterpolator;
 
 import com.gladysinc.gladys.Adapters.DeviceRoomAdapter;
 import com.gladysinc.gladys.Models.Devicetype;
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.orm.SugarRecord;
 

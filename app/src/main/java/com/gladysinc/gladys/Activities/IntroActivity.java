@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.gladysinc.gladys.CustomIntroFragment.ConfigIntroFragment;
+import com.gladysinc.gladys.MainActivity;
+import com.gladysinc.gladys.R;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;

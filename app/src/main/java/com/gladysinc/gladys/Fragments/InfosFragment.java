@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.gladysinc.gladys.BuildConfig;
+import com.gladysinc.gladys.R;
 
 
 public class InfosFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.gladysinc.gladys;
+package com.gladysinc.gladys.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.gladysinc.gladys.Adapters.EventAdapter;
 import com.gladysinc.gladys.Models.Event;
+import com.gladysinc.gladys.R;
 import com.gladysinc.gladys.Utils.Connectivity;
 import com.gladysinc.gladys.Utils.RetrofitAPI;
 import com.gladysinc.gladys.Utils.SelfSigningClientBuilder;
