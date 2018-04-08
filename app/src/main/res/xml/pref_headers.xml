@@ -1,0 +1,18 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+        android:fragment="com.gladysinc.gladys.Settings.SettingsActivity$GeneralPreferenceFragment"
+        android:icon="@drawable/ic_timeline"
+        android:title="@string/settings_title_general" />
+
+    <header
+        android:fragment="com.gladysinc.gladys.Settings.SettingsActivity$ConnectionPreferenceFragment"
+        android:icon="@drawable/ic_sync_blue"
+        android:title="@string/settings_title_connection" />
+
+    <header
+        android:fragment="com.gladysinc.gladys.Settings.SettingsActivity$GeolocationPreferenceFragment"
+        android:icon="@drawable/ic_location_zone_blue"
+        android:title="@string/settings_title_geolocation" />
+
+</preference-headers>

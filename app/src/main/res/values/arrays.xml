@@ -93,4 +93,11 @@
         <item>Sugar</item>
         <item>Timeline View</item>
     </string-array>
+
+    <string-array name="accuracy_locator_options">
+        <item>High power</item>
+        <item>Balanced power</item>
+        <item>Low power</item>
+        <item>No power</item>
+    </string-array>
 </resources>

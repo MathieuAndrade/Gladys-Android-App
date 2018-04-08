@@ -1,7 +1,9 @@
 <resources>
     <string name="about">A propos</string>
+    <string name="accuracy_locator">Précision de localisation</string>
     <string name="action_settings">Paramètres</string>
     <string name="add_button">add_button</string>
+    <string name="advanced_settings">Paramètres avancés</string>
     <string name="alarm">Alarmes</string>
     <string name="alarm_created">Alarme créé</string>
     <string name="alarm_removed">Alarme supprimée</string>
@@ -14,6 +16,10 @@
     <string name="approve_button">Approuver</string>
     <string name="approuved_sentences">Phrases Aprouvées</string>
     <string name="are_you">Êtes-vous</string>
+    <string name="auto_reporting">Envoi auto</string>
+    <string name="auto_reporting_summary">Envoi de la position automatiquement</string>
+    <string name="auto_start">Démarrage auto</string>
+    <string name="auto_start_summary">Lancer l\'application au démarrage de l\'appareil</string>
     <string name="brain">Brain</string>
     <string name="category">Catégorie :</string>
     <string name="command_send">Commande envoyée</string>
@@ -26,6 +32,8 @@
     <string name="dashboard_description">Contrôlez tous vos devices à tout moment et depuis n\'importe où.</string>
     <string name="date">Date</string>
     <string name="description_config_local">Entrez l’adresse IP locale de Gladys avec son port (8080 par défaut) et le token d’authentification de votre compte. L’HTTPS n’est pas géré en local. Ces paramètres pourront être modifiés plus tard.</string>
+    <string name="displacement_locator">Distance</string>
+    <string name="displacement_locator_summary">Distance de déplacement entre chaque mise à jour de la position</string>
     <string name="display">Afficher</string>
     <string name="dns_adress">DNS / IP Publique</string>
     <string name="dns_adress_example">Exemple: monadresse.ddns.net</string>
@@ -43,6 +51,8 @@
     <string name="https">HTTPS</string>
     <string name="id">ID :</string>
     <string name="info">Infos</string>
+    <string name="interval_locator">Intervalle</string>
+    <string name="interval_locator_summary">Temps en secondes entre chaque mise à jour de la position</string>
     <string name="ip_adress">Adresse IP locale</string>
     <string name="ip_adresse_example">Exemple: 192.168.1.12</string>
     <string name="it_is_not_you">Ce n\'est pas vous ?</string>
@@ -67,6 +77,7 @@
     <string name="no_sentences">Vous n\'avez aucune phrase</string>
     <string name="no_wifi_message">Vous n’êtes pas connecté en Wifi, souhaitez-vous configurer les paramètres de connexion en itinérance ?</string>
     <string name="open_source_license">Licenses open source</string>
+    <string name="other">Autres</string>
     <string name="permission_denied">Permission refusée</string>
     <string name="port">Port</string>
     <string name="port_example">Exemple: 8080</string>
@@ -84,6 +95,7 @@
     <string name="set_time">Régler l\'heure</string>
     <string name="settings_title_connection">Connexion</string>
     <string name="settings_title_general">Général</string>
+    <string name="settings_title_geolocation">Géolocalisation</string>
     <string name="specific_date">Réveil à une date précise</string>
     <string name="statue">Statut :</string>
     <string name="tag">Tag :</string>

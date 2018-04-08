@@ -55,9 +55,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Settings.settingsActivity"
+            android:name=".Settings.SettingsActivity"
             android:label="@string/settings"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".DeviceActivity"

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_report"
+        android:title="@string/auto_reporting"
+        android:summary="@string/auto_reporting_summary"/>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_start"
+        android:title="@string/auto_start"
+        android:summary="@string/auto_start_summary"/>
+
+    <PreferenceCategory
+        android:title="@string/advanced_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/accuracy_locator_options"
+            android:entryValues="@array/accuracy_locator_options"
+            android:key="accuracy_locator"
+            android:title="@string/accuracy_locator" />
+        <EditTextPreference
+            android:defaultValue="500"
+            android:key="displacement_locator"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/displacement_locator"
+            android:summary="@string/displacement_locator_summary"/>
+        <EditTextPreference
+            android:defaultValue="900"
+            android:key="interval_locator"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/interval_locator"
+            android:summary="@string/interval_locator_summary"/>
+    </PreferenceCategory>
+</PreferenceScreen>

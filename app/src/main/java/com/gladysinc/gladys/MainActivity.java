@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.gladysinc.gladys.Settings.settingsActivity;
+import com.gladysinc.gladys.Settings.SettingsActivity;
 
 import java.util.Objects;
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.settings) {
 
-            Intent intent = new Intent(getApplicationContext(), settingsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
 
             params.setScrollFlags(0);
