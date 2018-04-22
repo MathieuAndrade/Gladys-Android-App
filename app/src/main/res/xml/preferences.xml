@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/settings_title_general">
+
+    <EditTextPreference
+        android:dialogTitle="@string/name"
+        android:key="name"
+        android:hint="@string/name"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positve_button"
+        android:title="@string/name" />
+
+    <EditTextPreference
+        android:dialogTitle="@string/first_name"
+        android:key="first_name"
+        android:hint="@string/first_name"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positve_button"
+        android:title="@string/first_name" />
+
+    <EditTextPreference
+        android:dialogTitle="@string/user_id"
+        android:key="user_id"
+        android:hint="@string/user_id_example"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positve_button"
+        android:title="@string/user_id" />
+
+    <EditTextPreference
+        android:dialogTitle="@string/house_id"
+        android:key="house_id"
+        android:hint="@string/house_id_example"
+        android:negativeButtonText="@string/negative_button"
+        android:positiveButtonText="@string/positve_button"
+        android:title="@string/house_id" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_title_connection">
+        <EditTextPreference
+            android:dialogTitle="@string/ip_adress"
+            android:inputType="number|numberDecimal"
+            android:digits="0123456789."
+            android:key="local_ip"
+            android:hint="@string/ip_adresse_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/ip_adress" />
+
+        <EditTextPreference
+            android:dialogTitle="@string/port"
+            android:inputType="number"
+            android:key="local_port"
+            android:hint="@string/port_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/port" />
+
+        <EditTextPreference
+            android:dialogTitle="@string/token"
+            android:key="token"
+            android:hint="@string/token_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/token" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="nat"
+            android:title="@string/use_dns_adress" />
+
+        <EditTextPreference
+            android:dependency="nat"
+            android:dialogTitle="@string/dns_adress"
+            android:key="dns"
+            android:hint="@string/dns_adress_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/dns_adress" />
+
+        <SwitchPreference
+            android:dependency="nat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:key="https"
+            android:title="@string/https"
+            android:disableDependentsState="true"/>
+
+        <EditTextPreference
+            android:dependency="https"
+            android:dialogTitle="@string/port"
+            android:inputType="number"
+            android:key="nat_port"
+            android:hint="@string/dns_port_example"
+            android:negativeButtonText="@string/negative_button"
+            android:positiveButtonText="@string/positve_button"
+            android:title="@string/port" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_title_geolocation">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_report"
+        android:title="@string/auto_reporting"
+        android:summary="@string/auto_reporting_summary"/>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="auto_start"
+        android:title="@string/auto_start"
+        android:summary="@string/auto_start_summary"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/advanced_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/accuracy_locator_options"
+            android:entryValues="@array/accuracy_locator_options"
+            android:key="accuracy_locator"
+            android:title="@string/accuracy_locator" />
+        <EditTextPreference
+            android:defaultValue="500"
+            android:key="displacement_locator"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/displacement_locator"
+            android:summary="@string/displacement_locator_summary"/>
+        <EditTextPreference
+            android:defaultValue="900"
+            android:key="interval_locator"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/interval_locator"
+            android:summary="@string/interval_locator_summary"/>
+    </PreferenceCategory>
+</PreferenceScreen>
