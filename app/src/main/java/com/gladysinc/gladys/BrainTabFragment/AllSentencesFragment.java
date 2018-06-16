@@ -78,15 +78,6 @@ public class AllSentencesFragment extends Fragment implements AdapterCallback.Ad
         no_data_all = view.findViewById(R.id.no_data_all);
         no_data_all_ic = view.findViewById(R.id.no_data_all_ic);
 
-        final FloatingActionButton fab_scroll_up_all = view.findViewById(R.id.fab_scroll_up_all);
-        fab_scroll_up_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up_all.animate().translationY(fab_scroll_up_all.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
-
         onCreateAdapterView();
 
         return view;

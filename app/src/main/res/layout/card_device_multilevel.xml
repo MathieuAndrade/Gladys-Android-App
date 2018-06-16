@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/device_multilevel_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/ic_devices"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/device_multilevel_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/device_multilevel_logo"
+        android:layout_toStartOf="@+id/device_multilevel_value_text"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/device_multilevel_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/device_multilevel_name"
+        android:layout_below="@+id/device_multilevel_name"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/device_multilevel_value_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:textSize="14sp" />
+
+    <SeekBar
+        android:id="@+id/device_multilevel_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_multilevel_tag"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/device_multilevel_logo" />
+
+</RelativeLayout>

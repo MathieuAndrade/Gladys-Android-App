@@ -35,14 +35,6 @@ public class IntroActivity extends MaterialIntroActivity {
                 .description(getApplicationContext().getString(R.string.dashboard_description))
                 .build());
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.colorPrimaryDark)
-                .buttonsColor(R.color.colorAccent)
-                .image(R.drawable.img_map)
-                .title(getApplicationContext().getString(R.string.and_more))
-                .description(getApplicationContext().getString(R.string.app_functionalities_description))
-                .build());
-
         addSlide(new ConfigIntroFragment());
 
     }

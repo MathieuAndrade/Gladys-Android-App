@@ -61,7 +61,7 @@ import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCallbackAlarm {
 
     String url, pref_token;
-    Boolean connection;
+    boolean connection;
     RecyclerView recycler_view;
     EditText spe_alarm_name, spe_alarm_time, spe_alarm_date;
     EditText rec_alarm_name, rec_alarm_time;
@@ -80,7 +80,7 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -102,21 +102,11 @@ public class AlarmFragment extends Fragment implements AdapterCallback.AdapterCa
 
         recycler_view = view.findViewById(R.id.rv_fragment_alarm);
         recycler_view.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
         no_data_alarm = view.findViewById(R.id.no_data_alarm);
         no_data_alarm_ic = view.findViewById(R.id.no_data_alarm_ic);
-
-        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
-        fab_scroll_up.setVisibility(View.VISIBLE);
-        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
 
         return view;
     }

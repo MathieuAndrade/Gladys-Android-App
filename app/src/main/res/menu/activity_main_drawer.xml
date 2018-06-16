@@ -25,10 +25,6 @@
             android:id="@+id/brain"
             android:icon="@drawable/ic_brain"
             android:title="@string/brain" />
-        <item
-            android:id="@+id/maps"
-            android:icon="@drawable/ic_location_zone_blue"
-            android:title="@string/maps" />
     </group>
 
     <group

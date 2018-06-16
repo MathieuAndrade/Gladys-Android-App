@@ -10,7 +10,6 @@
     <string name="okhttp">https://github.com/square/okhttp</string>
     <string name="recycleview_animator">https://github.com/wasabeef/recyclerview-animators</string>
     <string name="retrofit">https://github.com/square/retrofit</string>
-    <string name="sectioned_recycler_view_adapter">https://github.com/luizgrp/SectionedRecyclerViewAdapter.git</string>
     <string name="sugarorm">https://github.com/chennaione/sugar</string>
     <string name="vipulasri">https://github.com/vipulasri/Timeline-View</string>
 </resources>

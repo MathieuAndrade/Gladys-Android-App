@@ -1,6 +1,5 @@
 package com.gladysinc.gladys.Fragments;
 
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,7 +18,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gladysinc.gladys.Adapters.DevicetypeByRoomAdapterSectioned;
+import com.gladysinc.gladys.Adapters.DashboardParentAdapter;
 import com.gladysinc.gladys.Models.Devicetype;
 import com.gladysinc.gladys.Models.DevicetypeByRoom;
 import com.gladysinc.gladys.R;
@@ -35,7 +34,6 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
 
-import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,23 +46,22 @@ import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 public class DashboardFragment extends Fragment implements AdapterCallback.AdapterCallbackDevicestate {
 
     String url, pref_token;
-    Boolean connection;
+    boolean connection;
     RecyclerView recycler_view;
     TextView no_data_dashboard;
     ImageView no_data_dashboard_ic;
-    List<Devicetype> data;
     MenuItem get_data_progress;
     SaveData save_data;
     Call<List<DevicetypeByRoom>> call;
-    SectionedRecyclerViewAdapter  adapterSectioned;
+    List<DevicetypeByRoom> data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        SugarContext.init(getContext());
+        SugarContext.init(Objects.requireNonNull(getContext()));
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,46 +84,31 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
         recycler_view = view.findViewById(R.id.rv_fragment_dashboard);
         recycler_view.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
-
-        adapterSectioned = new SectionedRecyclerViewAdapter();
 
         no_data_dashboard = view.findViewById(R.id.no_data_dashboard);
         no_data_dashboard_ic = view.findViewById(R.id.no_data_dashboard_ic);
-
-        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
-        fab_scroll_up.setVisibility(View.VISIBLE);
-        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
 
         return view;
     }
 
     public void onCreateAdapterView(){
 
-        long count = SugarRecord.count(Devicetype.class);
-
-        if(count>0) {
+        if(SugarRecord.count(Devicetype.class) > 0) {
             recycler_view.setVisibility(View.VISIBLE);
             no_data_dashboard.setVisibility(View.INVISIBLE);
             no_data_dashboard_ic.setVisibility(View.INVISIBLE);
 
-            for (int i = 0; i < 50; i++){
-                data = null;
-                data = SugarRecord.findWithQuery(Devicetype.class, "select * from devicetype where display = ? and room_id = ?","1", String.valueOf(i));
-                if(data.size() > 0){
-                    adapterSectioned.addSection(new DevicetypeByRoomAdapterSectioned(data.get(0).getRoomName(), data, this, getContext()));
-                }
+            data = null;
+            data = SugarRecord.listAll(DevicetypeByRoom.class);
+            for (int i = 0; i < data.size(); i++){
+                data.get(i).setDeviceTypes(SugarRecord.findWithQuery(Devicetype.class, "select * from devicetype where display = ? and room_id = ?","1", String.valueOf(data.get(i).getRommId())));
             }
 
-            recycler_view.setAdapter(adapterSectioned);
-            getAllDevicetypeByRoom();
+            recycler_view.setAdapter(new DashboardParentAdapter(data, this));
+            data = null;
+
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
             no_data_dashboard.setVisibility(View.VISIBLE);
@@ -137,23 +119,20 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
     public void onRefreshAdapterView(){
 
-        long count = SugarRecord.count(Devicetype.class);
-        adapterSectioned.removeAllSections();
-
-        if(count>0) {
+        if(SugarRecord.count(Devicetype.class) > 0) {
             recycler_view.setVisibility(View.VISIBLE);
             no_data_dashboard.setVisibility(View.INVISIBLE);
             no_data_dashboard_ic.setVisibility(View.INVISIBLE);
 
-            for (int i = 0; i < 50; i++){
-                data = null;
-                data = SugarRecord.findWithQuery(Devicetype.class, "select * from devicetype where display = ? and room_id = ?","1", String.valueOf(i));
-                if(data.size() > 0){
-                    adapterSectioned.addSection(new DevicetypeByRoomAdapterSectioned(data.get(0).getRoomName(), data, this, getContext()));
-                }
+            data = null;
+            data = SugarRecord.listAll(DevicetypeByRoom.class);
+            for (int i = 0; i < data.size(); i++){
+                data.get(i).setDeviceTypes(SugarRecord.findWithQuery(Devicetype.class, "select * from devicetype where display = ? and room_id = ?","1", String.valueOf(data.get(i).getRommId())));
             }
 
-            recycler_view.setAdapter(adapterSectioned);
+            recycler_view.setAdapter(new DashboardParentAdapter(data, this));
+            data = null;
+
         } else {
             recycler_view.setVisibility(View.INVISIBLE);
             no_data_dashboard.setVisibility(View.VISIBLE);
@@ -172,13 +151,12 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             connection = false;
             if(getActivity() != null){
-                SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_7));
+                SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.error_code_7));
             }
 
         }else {
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            pref_token = prefs.getString("token", "");
+            pref_token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("token", "");
             connection = true;
             url = type_of_connection;}
 
@@ -194,24 +172,20 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 .client(SelfSigningClientBuilder.getUnsafeOkHttpClient())
                 .build();
 
-        RetrofitAPI service = retrofit.create(RetrofitAPI.class);
-
-        call = service.getDevicetypeByRoom(pref_token);
+        call = retrofit.create(RetrofitAPI.class).getDevicetypeByRoom(pref_token);
 
         call.enqueue(new Callback<List<DevicetypeByRoom>>() {
             @Override
             public void onResponse(Call<List<DevicetypeByRoom>> call, Response<List<DevicetypeByRoom>> response) {
 
-                List<DevicetypeByRoom> devicetypeData = response.body();
-
-                if(devicetypeData != null){
+                if(response.body() != null){
                     save_data = new SaveData(DashboardFragment.this);
-                    save_data.execute(devicetypeData);
+                    save_data.execute(response.body());
                 } else {
                     onRefreshAdapterView();
                     get_data_progress.setVisible(false);
                     if(getActivity() != null){
-                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_4));
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.error_code_4));
                     }
                 }
 
@@ -222,7 +196,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
                 if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                     if(getActivity() != null){
-                        SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
+                        SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.error_code_5));
                     }
                 }
                 get_data_progress.setVisible(false);
@@ -260,11 +234,11 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 public void onResponse(Call<Void> call,Response<Void> response) {
                     if(response.code() == 200){
                         if(getActivity() != null){
-                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.command_send));
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.command_send));
                     }
                     }else{
                         if(getActivity() != null){
-                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.error_code_5));
                         }
                     }
                 }
@@ -272,7 +246,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 public void onFailure(Call<Void> call,Throwable t) {
                     if(!Objects.equals(t.getMessage(), "java.net.SocketTimeoutException")){
                         if(getActivity() != null){
-                            SnackbarUtils.simpleSnackBar(getContext(), getView(), getContext().getString(R.string.error_code_5));
+                            SnackbarUtils.simpleSnackBar(getContext(), getView(), Objects.requireNonNull(getContext()).getString(R.string.error_code_5));
                         }
                     }
                 }
@@ -321,30 +295,36 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
         @Override
         protected final Boolean doInBackground(List<DevicetypeByRoom>... params) {
 
-            List<DevicetypeByRoom> devicetypeByRomm_list = params[0];
-            List<Devicetype> devicetypesDisplayed = SugarRecord.find(Devicetype.class, "display=?", "1");
-            SugarRecord.deleteAll(Devicetype.class);
+            List<Devicetype> devicetypesDisplayed = SugarRecord.listAll(Devicetype.class);
+            Devicetype devicetype;
 
             try {
-                for (int i = 0; i < devicetypeByRomm_list.size(); i++) {
 
-                    for(int l = 0 ; l < devicetypeByRomm_list.get(i).getDeviceTypes().size(); l++) {
-                        Devicetype deviceType2 = new Devicetype(devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getDevicetypeName()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getDevicetypeId()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getType()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getCategory()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getTag()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getUnit()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getMin()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getMax()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getDisplay()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getSensor()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getLastChanged()
-                                , devicetypeByRomm_list.get(i).getDeviceTypes().get(l).getLastValue()
-                                , devicetypeByRomm_list.get(i).getRommId()
-                                , devicetypeByRomm_list.get(i).getRoomName());
+                SugarRecord.deleteAll(Devicetype.class);
+                SugarRecord.deleteAll(DevicetypeByRoom.class);
 
-                        SugarRecord.save(deviceType2);
+                for (int i = 0; i < params[0].size(); i++) {
+
+                    SugarRecord.save(new DevicetypeByRoom(params[0].get(i).getRoomName()
+                            , params[0].get(i).getHouse()
+                            , params[0].get(i).getRommId()
+                            , params[0].get(i).getDeviceTypes()));
+
+                    for(int l = 0 ; l < params[0].get(i).getDeviceTypes().size(); l++) {
+                        SugarRecord.save(new Devicetype(params[0].get(i).getDeviceTypes().get(l).getDevicetypeName()
+                                , params[0].get(i).getDeviceTypes().get(l).getDevicetypeId()
+                                , params[0].get(i).getDeviceTypes().get(l).getType()
+                                , params[0].get(i).getDeviceTypes().get(l).getCategory()
+                                , params[0].get(i).getDeviceTypes().get(l).getTag()
+                                , params[0].get(i).getDeviceTypes().get(l).getUnit()
+                                , params[0].get(i).getDeviceTypes().get(l).getMin()
+                                , params[0].get(i).getDeviceTypes().get(l).getMax()
+                                , params[0].get(i).getDeviceTypes().get(l).getDisplay()
+                                , params[0].get(i).getDeviceTypes().get(l).getSensor()
+                                , params[0].get(i).getDeviceTypes().get(l).getLastChanged()
+                                , params[0].get(i).getDeviceTypes().get(l).getLastValue()
+                                , params[0].get(i).getRommId()
+                                , params[0].get(i).getRoomName()));
 
                         if (isCancelled()) break;
                     }
@@ -354,7 +334,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
                 for(int j = 0; j < devicetypesDisplayed.size(); j++){
 
-                    Devicetype devicetype = (SugarRecord.find(Devicetype.class, "devicetype_id=?", devicetypesDisplayed.get(j).getDevicetypeId().toString())).get(0);
+                    devicetype = (SugarRecord.find(Devicetype.class, "devicetype_id=?", devicetypesDisplayed.get(j).getDevicetypeId().toString())).get(0);
                     if(devicetype != null){
                         devicetype.setDisplay(devicetypesDisplayed.get(j).getDisplay());
                         SugarRecord.save(devicetype);
@@ -367,7 +347,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
 
             } catch (Exception e){
                 if(dashboard_fragment_weak_reference.get().getActivity() != null){
-                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), dashboard_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
+                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), Objects.requireNonNull(dashboard_fragment_weak_reference.get().getActivity()).findViewById(R.id.layout), Objects.requireNonNull(dashboard_fragment_weak_reference.get().getContext()).getString(R.string.error_code_4));
                 }
                 result = false;
             }
@@ -384,7 +364,7 @@ public class DashboardFragment extends Fragment implements AdapterCallback.Adapt
                 dashboard_fragment_weak_reference.get().onRefreshAdapterView();
             } else {
                 if(dashboard_fragment_weak_reference.get().getActivity() != null){
-                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), dashboard_fragment_weak_reference.get().getActivity().findViewById(R.id.layout), dashboard_fragment_weak_reference.get().getContext().getString(R.string.error_code_4));
+                    SnackbarUtils.simpleSnackBar(dashboard_fragment_weak_reference.get().getActivity(), Objects.requireNonNull(dashboard_fragment_weak_reference.get().getActivity()).findViewById(R.id.layout), Objects.requireNonNull(dashboard_fragment_weak_reference.get().getContext()).getString(R.string.error_code_4));
                 }
             }
 

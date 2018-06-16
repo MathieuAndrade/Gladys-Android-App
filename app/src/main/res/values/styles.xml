@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:fontFamily">@font/karla_regular</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -36,4 +36,5 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
     </style>
+
 </resources>

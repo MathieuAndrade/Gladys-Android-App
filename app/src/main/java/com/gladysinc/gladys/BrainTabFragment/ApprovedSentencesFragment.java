@@ -78,15 +78,6 @@ public class ApprovedSentencesFragment extends Fragment implements AdapterCallba
         no_data_approved = view.findViewById(R.id.no_data_approved);
         no_data_approved_ic = view.findViewById(R.id.no_data_approved_ic);
 
-        final FloatingActionButton fab_scroll_up_approved = view.findViewById(R.id.fab_scroll_up_approved);
-        fab_scroll_up_approved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up_approved.animate().translationY(fab_scroll_up_approved.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
-
         onCreateAdapterView();
 
         return view;

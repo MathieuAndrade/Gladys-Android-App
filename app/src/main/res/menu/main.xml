@@ -9,21 +9,6 @@
         android:visible="false"
         android:orderInCategory="100"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/location_button"
-        android:icon="@drawable/ic_location"
-        android:title="@string/location_button"
-        android:visible="false"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/report_button"
-        android:icon="@drawable/ic_report"
-        android:title="@string/report_button"
-        android:visible="false"
-        android:orderInCategory="90"
-        app:showAsAction="always" />
 
     <item
         android:id="@+id/miActionProgress"

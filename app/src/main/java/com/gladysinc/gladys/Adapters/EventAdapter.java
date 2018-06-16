@@ -1,6 +1,7 @@
 package com.gladysinc.gladys.Adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public EventAdapter(List<Event> eventList){this.results = eventList;}
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = View.inflate(parent.getContext(), R.layout.card_timeline, null);
         return new ViewHolder(view, viewType);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position){
 
         holder.event_view.setMarker(VectorDrawableUtils.getDrawable(context, R.drawable.ic_marker_event, R.color.colorAccent));
         holder.event_title.setText(results.get(position).getName());
@@ -98,6 +100,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 break;
             case "house-mode-changed":
                 holder.event_logo.setImageResource(R.drawable.ic_home);
+                holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                break;
+            case "user-need-to-wake-up":
+                holder.event_logo.setImageResource(R.drawable.ic_alarm);
                 holder.event_title.setTextColor(context.getResources().getColor(R.color.colorPrimary));
                 break;
         }

@@ -24,7 +24,6 @@ public class DevicetypeByRoom {
     public  DevicetypeByRoom() {}
 
     public  DevicetypeByRoom(String roomName, Integer house, Long roomId, List<Devicetype> deviceType2) {
-        super();
         this.roomName = roomName;
         this.house = house;
         this.rommId = roomId;

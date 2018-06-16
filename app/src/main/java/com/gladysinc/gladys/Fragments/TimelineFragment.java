@@ -46,7 +46,7 @@ public class TimelineFragment extends Fragment {
 
     String url, pref_token;
     String code, pref_user, pref_house;
-    Boolean connection;
+    boolean connection;
     RecyclerView recycler_view;
     TextView no_data_timeline;
     ImageView no_data_timeline_ic;
@@ -86,16 +86,6 @@ public class TimelineFragment extends Fragment {
 
         no_data_timeline = view.findViewById(R.id.no_data_timeline);
         no_data_timeline_ic = view.findViewById(R.id.no_data_timeline_ic);
-
-        final FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
-        fab_scroll_up.setVisibility(View.VISIBLE);
-        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
 
         return view;
     }

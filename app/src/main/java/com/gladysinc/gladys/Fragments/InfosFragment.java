@@ -15,6 +15,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.gladysinc.gladys.BuildConfig;
 import com.gladysinc.gladys.R;
 
+import java.util.Objects;
+
 
 public class InfosFragment extends Fragment {
 
@@ -22,7 +24,7 @@ public class InfosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
         if(fab != null){
             fab.setVisibility(View.INVISIBLE);
         }
@@ -38,13 +40,13 @@ public class InfosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                intent.setData(Uri.parse("package:" + Objects.requireNonNull(getActivity()).getPackageName()));
                 startActivity(intent);
             }
         });
 
         TextView app_version = view.findViewById(R.id.app_version);
-        String version = getActivity().getString(R.string.version) + " Beta" + " " + BuildConfig.VERSION_NAME;
+        String version = Objects.requireNonNull(getActivity()).getString(R.string.version) + " Beta" + " " + BuildConfig.VERSION_NAME;
         app_version.setText(version);
 
         TextView open_source_licences = view.findViewById(R.id.open_source_license);
@@ -80,12 +82,9 @@ public class InfosFragment extends Fragment {
                                         url =  getActivity().getString(R.string.retrofit);
                                         break;
                                     case 6:
-                                        url =  getActivity().getString(R.string.sectioned_recycler_view_adapter);
-                                        break;
-                                    case 7:
                                         url =  getActivity().getString(R.string.sugarorm);
                                         break;
-                                    case 8:
+                                    case 7:
                                         url =  getActivity().getString(R.string.vipulasri);
                                         break;
                                 }

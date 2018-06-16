@@ -4,22 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginTop="6dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
     android:clickable="true"
     android:focusable="true"
-    android:layout_marginBottom="1dp"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="1dp">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <RelativeLayout
         android:id="@+id/brain_sentences_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="9dp">
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/sentence_text"
@@ -27,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/more_button"
-            android:paddingLeft="10dp"
             android:paddingBottom="2dp"
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
@@ -37,8 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sentence_text"
-            android:paddingLeft="10dp"
-
             android:paddingBottom="2dp"
             android:textSize="14sp" />
 
@@ -47,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sentence_label"
-            android:paddingLeft="10dp"
             android:paddingBottom="2dp"
             android:textSize="14sp" />
 
@@ -56,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sentence_service"
-            android:paddingLeft="10dp"
             android:paddingBottom="2dp"
             android:textSize="14sp" />
 
@@ -67,7 +58,6 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:paddingRight="5dp"
             android:layout_marginBottom="10dp"
             app:srcCompat="@drawable/ic_more"
             tools:ignore="ContentDescription" />

@@ -72,20 +72,11 @@ public class RejectedSentencesFragment extends Fragment implements AdapterCallba
 
         recycler_view = view.findViewById(R.id.rv_fragment_rejected_sentences);
         recycler_view.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
 
         no_data_rejected = view.findViewById(R.id.no_data_rejected);
         no_data_rejected_ic = view.findViewById(R.id.no_data_rejected_ic);
-
-        final FloatingActionButton fab_scroll_up_rejected = view.findViewById(R.id.fab_scroll_up_rejected);
-        fab_scroll_up_rejected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up_rejected.animate().translationY(fab_scroll_up_rejected.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
 
         onCreateAdapterView();
 

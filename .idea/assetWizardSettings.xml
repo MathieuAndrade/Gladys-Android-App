@@ -13,17 +13,31 @@
                       <PersistentState>
                         <option name="children">
                           <map>
-                            <entry key="actionbar">
+                            <entry key="launcher">
                               <value>
                                 <PersistentState>
                                   <option name="children">
                                     <map>
-                                      <entry key="clipartAsset">
+                                      <entry key="foregroundText">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/notification/ic_sync_black_24dp.xml" />
+                                                <entry key="color" value="ffffff" />
+                                                <entry key="scalingPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="foregroundTextAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="fontFamily" value="Microsoft Sans Serif" />
+                                                <entry key="text" value="G" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,32 +47,14 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_sync_blue" />
-                                      <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="081636" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="081636" />
+                                      <entry key="foregroundAssetType" value="TEXT" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
-                            <entry key="launcher">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
-                                      <entry key="outputName" value="ic_sync_blue" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

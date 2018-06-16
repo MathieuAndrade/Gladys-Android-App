@@ -42,7 +42,7 @@ import static com.gladysinc.gladys.Utils.Connectivity.type_of_connection;
 public class BrainFragment extends Fragment {
 
     String url, pref_token;
-    Boolean connection;
+    boolean connection;
     MenuItem get_data_progress;
     SaveData save_data;
     Call<List<BrainSentences>> call;
@@ -53,12 +53,9 @@ public class BrainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        SugarContext.init(getContext());
+        SugarContext.init(Objects.requireNonNull(getContext()));
 
-        FloatingActionButton fab_scroll_up = getActivity().findViewById(R.id.fab_scroll_up);
-        fab_scroll_up.setVisibility(View.INVISIBLE);
-
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        FloatingActionButton fab = Objects.requireNonNull(getActivity()).findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         fab.setOnClickListener(new View.OnClickListener() {

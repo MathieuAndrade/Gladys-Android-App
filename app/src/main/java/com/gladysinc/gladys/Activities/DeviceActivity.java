@@ -18,6 +18,7 @@ import com.gladysinc.gladys.Utils.AdapterCallback;
 import com.orm.SugarRecord;
 
 import java.util.List;
+import java.util.Objects;
 
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
@@ -41,7 +42,7 @@ public class DeviceActivity extends AppCompatActivity implements AdapterCallback
 
         Intent intent = getIntent();
         id = intent.getLongExtra("room_id", 0);
-        room_name = intent.getExtras().getString("room_name", "");
+        room_name = Objects.requireNonNull(intent.getExtras()).getString("room_name", "");
 
         List<Devicetype> devicetypes = SugarRecord.find(Devicetype.class, "room_id=?", id.toString());
         adapterView(devicetypes);
@@ -57,17 +58,6 @@ public class DeviceActivity extends AppCompatActivity implements AdapterCallback
         recycler_view.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler_view.setLayoutManager(layoutManager);
-
-        final FloatingActionButton fab_scroll_up = findViewById(R.id.fab_scroll_up);
-        fab_scroll_up.setVisibility(View.VISIBLE);
-        fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-        fab_scroll_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up.animate().translationY(fab_scroll_up.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
     }
 
     public void adapterView(List<Devicetype> data){

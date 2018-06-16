@@ -68,6 +68,6 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/location")
-    Call<Void> createLocation(@Field("latitude") Float latitude, @Field("longitude") Float longitude, @Field("token") String token);
+    Call<Void> createLocation(@Field("latitude") Float latitude, @Field("longitude") Float longitude, @Field("altitude") Float altitude, @Field("accuracy") Float accuracy, @Field("token") String token);
 
 }

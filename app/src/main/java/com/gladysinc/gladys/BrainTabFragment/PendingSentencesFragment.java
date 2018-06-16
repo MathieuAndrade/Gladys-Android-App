@@ -78,15 +78,6 @@ public class PendingSentencesFragment extends Fragment implements AdapterCallbac
         no_data_pending = view.findViewById(R.id.no_data_pending);
         no_data_pending_ic = view.findViewById(R.id.no_data_pending_ic);
 
-        final FloatingActionButton fab_scroll_up_pending = view.findViewById(R.id.fab_scroll_up_pending);
-        fab_scroll_up_pending.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                recycler_view.smoothScrollToPosition(0);
-                fab_scroll_up_pending.animate().translationY(fab_scroll_up_pending.getHeight() + 400).setInterpolator(new LinearInterpolator()).start();
-            }
-        });
-
         onCreateAdapterView();
 
         return view;
