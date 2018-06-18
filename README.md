@@ -1,5 +1,7 @@
 ﻿## Gladys Android app
-[![Download](https://img.shields.io/badge/Download-v1.5.2-blue.svg)](https://github.com/MathieuAndrade/Gladys-Android-App/releases/download/1.5.2/v1.5.2.apk)
+[![Download](https://img.shields.io/badge/Download-v1.5.2-blue.svg)](https://github.com/MathieuAndrade/Gladys-Android-App/releases/download/1.5.2/v1.5.2.apk)  
+
+:warning: **If you are using a version earlier than 1.5.2, uninstall it before the update !** 
 
 This android app works with the Gladys Project home automation system. You can control your devices, manage your alarms, trigger events and manage the brain directly from this application.
 
